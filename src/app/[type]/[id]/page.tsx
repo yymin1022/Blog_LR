@@ -1,7 +1,11 @@
-export default function PostList() {
+export default function PostList(
+    { params }: { params: { type: string, id: string } }
+) {
     return (
         <div>
-            PostView Page
+            {
+                `${params.type} ${params.id} PostView Page`
+            }
         </div>
     );
 }
