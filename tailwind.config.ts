@@ -16,9 +16,17 @@ const config: Config = {
                               blog_lightgray_1: "#808080",
                               blog_lightgray_2: "#AAAAAA",
                               blog_lightgray_3: "#DDDDDD",
-                              blog_white: "#FFFFFF"
+                              blog_white: "#FFFFFF",
                         }
-                  }
+                  },
+                  fontFamily: {
+                        'nanum-b': ['NanumSquareB'],
+                        'nanum-l': ['NanumSquareL'],
+                        'nanum-r': ['NanumSquareR'],
+                        'pretendard-b': ['PretendardB'],
+                        'pretendard-l': ['PretendardL'],
+                        'pretendard-r': ['PretendardR'],
+                  },
             },
       },
       plugins: [],
