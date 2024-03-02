@@ -10,9 +10,7 @@ const SideMenuDesktop = () => {
 
 const SideMenuDivider = () => {
     return(
-        <div>
-            Divider
-        </div>
+        <div className="h-[1px] bg-primary-blog_white mx-[20px] my-[10px]" />
     );
 }
 
