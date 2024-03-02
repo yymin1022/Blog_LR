@@ -1,7 +1,9 @@
+import SideMenuDesktop from "@/app/_component/SideMenu/SideMenuDesktop";
+
 const SideMenu = () => {
     return(
-        <div className="w-[400px]">
-            Side Menu
+        <div className="invisible lg:visible">
+            <SideMenuDesktop />
         </div>
     );
 }
