@@ -15,9 +15,11 @@ export default function RootLayout({
     return (
         <html lang="en">
             <body>
-                <SideMenu/>
-                <div>
-                    {children}
+                <div className="w-full flex flex-row">
+                    <SideMenu/>
+                    <div className="w-full">
+                        {children}
+                    </div>
                 </div>
             </body>
         </html>
