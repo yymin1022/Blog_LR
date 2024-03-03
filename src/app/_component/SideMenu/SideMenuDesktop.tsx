@@ -33,7 +33,7 @@ const SideMenuNav = () => {
 
 const SideMenuNavButton = ({url}: {url: UrlData}) => {
     return(
-        <Link href={url.toString()}>
+        <Link href={url}>
             {
                 url == UrlData.facebook ?
                     <FaFacebook color="white" size="2em" />
