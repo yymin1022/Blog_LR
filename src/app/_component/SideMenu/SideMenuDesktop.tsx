@@ -15,13 +15,13 @@ const SideMenuDesktop = () => {
 
 const SideMenuDivider = () => {
     return(
-        <div className="h-[1px] bg-primary-blog_white mx-[20px] my-[10px]" />
+        <div className="h-[1px] bg-primary-blog_white mx-[20px] my-[30px]" />
     );
 }
 
 const SideMenuNav = () => {
     return(
-        <div className="flex flex-row justify-evenly">
+        <div className="flex flex-row justify-evenly mb-[50px]">
             <SideMenuNavButton url={UrlData.facebook}/>
             <SideMenuNavButton url={UrlData.github}/>
             <SideMenuNavButton url={UrlData.googleplay}/>
@@ -32,7 +32,6 @@ const SideMenuNav = () => {
 }
 
 const SideMenuNavButton = ({url}: {url: UrlData}) => {
-
     return(
         <Link href={url.toString()}>
             {
