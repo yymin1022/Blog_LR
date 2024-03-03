@@ -51,9 +51,12 @@ const SideMenuNavButton = ({url}: {url: UrlData}) => {
 
 const SideMenuTitle = () => {
     return(
-        <div>
-            Title
-        </div>
+        <Link href={"/"}>
+            <div className="flex flex-col mx-[30px] font-nanum-l text-6xl text-primary-blog_white">
+                LR의<br/>
+                IT블로그
+            </div>
+        </Link>
     );
 }
 
