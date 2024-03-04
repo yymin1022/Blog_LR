@@ -1,9 +1,9 @@
+import HomePageDesktop from "@/app/_component/HomePage/HomePageDesktop";
+
 export default function Home() {
     return (
-        <main className="flex min-h-screen flex-col items-center justify-between p-24">
-            <div>
-                Contents
-            </div>
-        </main>
+        <div className="invisible lg:visible">
+            <HomePageDesktop/>
+        </div>
     );
 }
