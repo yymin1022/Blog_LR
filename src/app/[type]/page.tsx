@@ -10,7 +10,7 @@ export default async function PostListPage({
 }) {
     const { type } = await params;
     if (type === "about") {
-        redirect("/about/LR");
+        redirect("/about/Useful");
     }
     const result = await getFBPostList(type);
     const postList: PostData[] = result.RESULT_CODE === 200 ? result.RESULT_DATA.PostList : [];

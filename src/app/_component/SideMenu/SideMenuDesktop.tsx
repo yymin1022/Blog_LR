@@ -57,9 +57,9 @@ const SideMenuNavButton = ({url}: {url: UrlData}) => {
 const SideMenuTitle = () => {
     return(
         <Link href={"/"} className="group">
-            <div className="flex flex-col mx-[30px] font-nanum-l text-6xl text-primary-blog_white transition-all duration-300 group-hover:translate-x-1">
-                LR의<br/>
-                <span className="font-nanum-b font-black mt-[10px]">IT블로그</span>
+            <div className="flex flex-col mx-[30px] font-nanum-l text-5xl text-primary-blog_white transition-all duration-300 group-hover:translate-x-1">
+                Useful한<br/>
+                <span className="font-nanum-b font-black mt-[10px] text-5xl">IT블로그</span>
             </div>
         </Link>
     );

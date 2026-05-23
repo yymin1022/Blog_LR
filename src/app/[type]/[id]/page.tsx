@@ -26,7 +26,7 @@ export default async function PostViewPage({
                     {PostTitle}
                 </h1>
                 <div className="flex flex-row items-center justify-center text-[14px] text-[#888888] font-nanum-r gap-[8px] select-none">
-                    <span>written by <strong className="text-primary-blog_blue font-bold font-nanum-b">LR</strong></span>
+                    <span>written by <strong className="text-primary-blog_blue font-bold font-nanum-b">Useful</strong></span>
                     <span className="text-[#DDDDDD]">•</span>
                     <span>{PostDate}</span>
                 </div>
