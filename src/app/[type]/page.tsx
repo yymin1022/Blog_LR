@@ -28,7 +28,7 @@ export default async function PostListPage({
                         <span className="w-[3px] h-[16px] bg-primary-blog_blue rounded-full" />
                         <span className="text-[12px] font-bold text-primary-blog_blue uppercase tracking-widest font-nanum-b">Featured</span>
                     </div>
-                    <div className="flex flex-col w-full">
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-[20px] w-full">
                         {pinnedPosts.map((post) => (
                             <PostCard key={post.postID} post={post} postType={type} />
                         ))}
@@ -50,7 +50,7 @@ export default async function PostListPage({
                             <span className="text-[12px] font-bold text-[#9CA3AF] uppercase tracking-widest font-nanum-b">Posts</span>
                         </div>
                     )}
-                    <div className="w-full flex flex-row flex-wrap gap-[12px] sm:gap-[16px] justify-center min-[1400px]:justify-start">
+                    <div className="w-full flex flex-row flex-wrap justify-center min-[1400px]:justify-between">
                         {unpinnedPosts.map((post) => (
                             <PostCard key={post.postID} post={post} postType={type} />
                         ))}

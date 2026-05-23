@@ -25,7 +25,7 @@ const PostCardDesktop: React.FC<PostCardDesktopProps> = ({ post, postType }) => 
     if (postIsPinned) {
         return (
             <Link href={postLink} className="block">
-                <div className="w-[350px] min-[1400px]:w-[450px] h-[150px] flex flex-row shadow-[0_1px_2px_rgba(0,0,0,0.15)] hover:shadow-[0_5px_15px_rgba(0,0,0,0.3)] transition-shadow duration-300 ease-in-out my-[15px] bg-primary-blog_white overflow-hidden">
+                <div className="w-full h-[150px] flex flex-row shadow-[0_1px_2px_rgba(0,0,0,0.15)] hover:shadow-[0_5px_15px_rgba(0,0,0,0.3)] transition-shadow duration-300 ease-in-out my-[15px] bg-primary-blog_white overflow-hidden">
                     {/* Image Container */}
                     <div className="w-[150px] h-[150px] flex-shrink-0">
                         <img
@@ -36,7 +36,7 @@ const PostCardDesktop: React.FC<PostCardDesktopProps> = ({ post, postType }) => 
                         />
                     </div>
                     {/* Text Container */}
-                    <div className="w-[200px] min-[1400px]:w-[300px] h-[150px] flex flex-col justify-center px-[20px] py-[10px]">
+                    <div className="flex-1 h-[150px] flex flex-col justify-center px-[20px] py-[10px] min-w-0">
                         <h2 className="text-[17px] font-black text-primary-blog_blue text-left line-clamp-2 leading-[22px]">
                             {postTitle}
                         </h2>
