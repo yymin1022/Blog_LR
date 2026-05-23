@@ -1,6 +1,7 @@
 import React from "react";
 import PostCard from "@/app/[type]/_component/PostCard/PostCard";
 import { getFBPostList, PostData } from "@/utils/FirebaseUtil";
+import { redirect } from "next/navigation";
 
 export default async function PostListPage({
     params,
@@ -8,6 +9,9 @@ export default async function PostListPage({
     params: Promise<{ type: string }>;
 }) {
     const { type } = await params;
+    if (type === "about") {
+        redirect("/about/LR");
+    }
     const result = await getFBPostList(type);
     const postList: PostData[] = result.RESULT_CODE === 200 ? result.RESULT_DATA.PostList : [];
 
