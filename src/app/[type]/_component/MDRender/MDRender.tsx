@@ -55,7 +55,7 @@ const MDRender: React.FC<MDRenderProps> = ({ content, postURL, postType }) => {
 
         // Blockquote
         blockquote: ({ children, ...props }: any) => (
-            <blockquote className="border-l-4 border-primary-blog_blue bg-[#F3F4F6] text-[#4B5563] pl-[20px] pr-[10px] py-[12px] my-[20px] max-w-[800px] mx-auto rounded-r-[6px] italic text-left" {...props}>
+            <blockquote className="border-l-4 border-primary-blog_blue bg-[#F8FAFC] text-[#4B5563] pl-[20px] pr-[10px] py-[14px] my-[20px] max-w-[800px] mx-auto rounded-r-[8px] italic text-left" {...props}>
                 {children}
             </blockquote>
         ),
@@ -79,14 +79,14 @@ const MDRender: React.FC<MDRenderProps> = ({ content, postURL, postType }) => {
 
         // Table
         table: ({ children, ...props }: any) => (
-            <div className="w-full max-w-[800px] mx-auto my-[25px] overflow-x-auto rounded-[8px] border border-primary-blog_lightgray_3">
+            <div className="w-full max-w-[800px] mx-auto my-[25px] overflow-x-auto rounded-[12px] border border-[#E5E7EB] shadow-[0_2px_8px_rgba(0,0,0,0.02)]">
                 <table className="w-full border-collapse text-[15px] text-left" {...props}>
                     {children}
                 </table>
             </div>
         ),
         thead: ({ children, ...props }: any) => (
-            <thead className="bg-[#F3F4F6] text-primary-blog_black font-bold border-b border-primary-blog_lightgray_3 font-nanum-b" {...props}>
+            <thead className="bg-[#F9FAFB] text-[#374151] font-bold border-b border-[#E5E7EB] font-nanum-b" {...props}>
                 {children}
             </thead>
         ),
@@ -96,7 +96,7 @@ const MDRender: React.FC<MDRenderProps> = ({ content, postURL, postType }) => {
             </tbody>
         ),
         tr: ({ children, ...props }: any) => (
-            <tr className="hover:bg-[#F9FAFB] transition-colors" {...props}>
+            <tr className="hover:bg-[#F9FAFB] transition-colors border-b border-[#E5E7EB] last:border-b-0" {...props}>
                 {children}
             </tr>
         ),
@@ -106,7 +106,7 @@ const MDRender: React.FC<MDRenderProps> = ({ content, postURL, postType }) => {
             </th>
         ),
         td: ({ children, ...props }: any) => (
-            <td className="px-[16px] py-[12px] border-r border-[#E5E7EB] last:border-r-0" {...props}>
+            <td className="px-[16px] py-[12px] border-r border-[#E5E7EB] last:border-r-0 text-[#4B5563]" {...props}>
                 {children}
             </td>
         ),
@@ -116,11 +116,29 @@ const MDRender: React.FC<MDRenderProps> = ({ content, postURL, postType }) => {
             const match = /language-(\w+)/.exec(className || "");
             const inline = !match;
             return !inline ? (
-                <div className="w-full max-w-[800px] mx-auto my-[15px] text-left rounded-[8px] overflow-hidden text-[14px]">
+                <div className="w-full max-w-[800px] mx-auto my-[20px] text-left rounded-[12px] border border-[#E5E7EB]/40 overflow-hidden text-[14px] bg-[#1E1E1E] shadow-[0_4px_12px_rgba(0,0,0,0.08)]">
+                    {/* macOS terminal-style window bar */}
+                    <div className="flex items-center justify-between px-[16px] py-[10px] bg-[#2D3035] border-b border-[#1E1E1E] select-none">
+                        <div className="flex items-center gap-[6px]">
+                            <span className="w-[10px] h-[10px] rounded-full bg-[#FF5F56] block" />
+                            <span className="w-[10px] h-[10px] rounded-full bg-[#FFBD2E] block" />
+                            <span className="w-[10px] h-[10px] rounded-full bg-[#27C93F] block" />
+                        </div>
+                        {match[1] && (
+                            <span className="text-[#A0AEC0] text-[11px] font-mono uppercase tracking-wider font-semibold">
+                                {match[1]}
+                            </span>
+                        )}
+                    </div>
                     <SyntaxHighlighter
                         style={darcula}
                         language={match[1]}
                         PreTag="div"
+                        customStyle={{
+                            margin: 0,
+                            padding: "16px",
+                            background: "#1E1E1E",
+                        }}
                         {...props}
                     >
                         {String(children).replace(/\n$/, "")}

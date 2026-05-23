@@ -19,7 +19,7 @@ export default async function PostListPage({
     const unpinnedPosts = postList.filter((post) => !post.postIsPinned);
 
     return (
-        <div className="w-full max-w-[1000px] flex flex-col items-center mx-auto px-[20px] py-[30px] lg:my-[50px]">
+        <div className="w-full max-w-[1000px] flex flex-col items-center mx-auto px-[20px] py-[30px] lg:my-[50px] animate-fade-in-up select-none">
             {/* Pinned Posts */}
             <div className="w-full flex flex-row flex-wrap justify-center min-[1400px]:justify-between">
                 {pinnedPosts.map((post) => (
@@ -29,7 +29,7 @@ export default async function PostListPage({
 
             {/* Divider */}
             {pinnedPosts.length > 0 && unpinnedPosts.length > 0 && (
-                <hr className="w-full min-[1400px]:w-[990px] border-0 bg-primary-blog_lightgray_3 h-[1px] my-[20px]" />
+                <hr className="w-full min-[1400px]:w-[990px] border-0 bg-gradient-to-r from-transparent via-[#DDDDDD] to-transparent h-[1px] my-[20px]" />
             )}
 
             {/* Unpinned Posts */}
