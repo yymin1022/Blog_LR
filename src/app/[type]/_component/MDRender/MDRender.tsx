@@ -14,73 +14,103 @@ interface MDRenderProps {
 
 const MDRender: React.FC<MDRenderProps> = ({ content, postURL, postType }) => {
     const components = {
-        // Headings
+        // ── Headings ──────────────────────────────────────────────────────────
         h1: ({ children, ...props }: any) => (
-            <h1 className="text-[26px] min-[1400px]:text-[32px] font-black text-primary-blog_blue mt-[40px] mb-[20px] pb-[10px] border-b border-primary-blog_lightgray_3 text-left w-full max-w-[800px] mx-auto leading-tight font-nanum-b" {...props}>
+            <h1
+                className="text-[24px] lg:text-[28px] font-black text-primary-blog_blue mt-[48px] mb-[16px] pb-[10px] border-b border-[#E5E7EB] leading-tight font-nanum-b"
+                {...props}
+            >
                 {children}
             </h1>
         ),
         h2: ({ children, ...props }: any) => (
-            <h2 className="text-[22px] min-[1400px]:text-[28px] font-black text-[#1F2937] mt-[30px] mb-[15px] text-left w-full max-w-[800px] mx-auto leading-snug font-nanum-b" {...props}>
+            <h2
+                className="text-[20px] lg:text-[24px] font-black text-[#1F2937] mt-[36px] mb-[12px] leading-snug font-nanum-b"
+                {...props}
+            >
                 {children}
             </h2>
         ),
         h3: ({ children, ...props }: any) => (
-            <h3 className="text-[18px] min-[1400px]:text-[22px] font-black text-[#374151] mt-[25px] mb-[12px] text-left w-full max-w-[800px] mx-auto leading-snug font-nanum-b" {...props}>
+            <h3
+                className="text-[17px] lg:text-[20px] font-black text-[#374151] mt-[28px] mb-[10px] leading-snug font-nanum-b"
+                {...props}
+            >
                 {children}
             </h3>
         ),
         h4: ({ children, ...props }: any) => (
-            <h4 className="text-[16px] min-[1400px]:text-[18px] font-black text-[#4B5563] mt-[20px] mb-[10px] text-left w-full max-w-[800px] mx-auto font-nanum-b" {...props}>
+            <h4
+                className="text-[15px] lg:text-[17px] font-black text-[#4B5563] mt-[20px] mb-[8px] font-nanum-b"
+                {...props}
+            >
                 {children}
             </h4>
         ),
         h5: ({ children, ...props }: any) => (
-            <h5 className="text-[15px] font-black text-[#6B7280] mt-[15px] mb-[8px] text-left w-full max-w-[800px] mx-auto font-nanum-b" {...props}>
+            <h5
+                className="text-[14px] font-black text-[#6B7280] mt-[16px] mb-[6px] font-nanum-b"
+                {...props}
+            >
                 {children}
             </h5>
         ),
         h6: ({ children, ...props }: any) => (
-            <h6 className="text-[14px] font-black text-[#9CA3AF] mt-[15px] mb-[8px] text-left w-full max-w-[800px] mx-auto font-nanum-b" {...props}>
+            <h6
+                className="text-[13px] font-black text-[#9CA3AF] mt-[14px] mb-[6px] font-nanum-b"
+                {...props}
+            >
                 {children}
             </h6>
         ),
 
-        // Paragraph
+        // ── Paragraph ─────────────────────────────────────────────────────────
         p: ({ children, ...props }: any) => (
-            <div className="my-[15px] leading-[28px] text-primary-blog_black text-[16px] font-nanum-r text-justify max-w-[800px] mx-auto break-words" {...props}>
+            <div
+                className="my-[14px] leading-[1.85] text-primary-blog_black text-[15px] lg:text-[16px] font-nanum-r break-words"
+                {...props}
+            >
                 {children}
             </div>
         ),
 
-        // Blockquote
+        // ── Blockquote ────────────────────────────────────────────────────────
         blockquote: ({ children, ...props }: any) => (
-            <blockquote className="border-l-4 border-primary-blog_blue bg-[#F8FAFC] text-[#4B5563] pl-[20px] pr-[10px] py-[14px] my-[20px] max-w-[800px] mx-auto rounded-r-[8px] italic text-left" {...props}>
+            <blockquote
+                className="border-l-[3px] border-primary-blog_blue bg-[#F8FAFC] text-[#4B5563] pl-[18px] pr-[12px] py-[12px] my-[20px] rounded-r-[6px] italic text-[15px] font-nanum-r"
+                {...props}
+            >
                 {children}
             </blockquote>
         ),
 
-        // Lists
+        // ── Lists ─────────────────────────────────────────────────────────────
         ul: ({ children, ...props }: any) => (
-            <ul className="mx-auto text-left w-full max-w-[800px] list-disc pl-[25px] my-[15px] space-y-[8px] font-nanum-r text-[16px] text-primary-blog_black" {...props}>
+            <ul
+                className="list-disc pl-[22px] my-[14px] space-y-[6px] font-nanum-r text-[15px] lg:text-[16px] text-primary-blog_black"
+                {...props}
+            >
                 {children}
             </ul>
         ),
         ol: ({ children, ...props }: any) => (
-            <ol className="mx-auto text-left w-full max-w-[800px] list-decimal pl-[25px] my-[15px] space-y-[8px] font-nanum-r text-[16px] text-primary-blog_black" {...props}>
+            <ol
+                className="list-decimal pl-[22px] my-[14px] space-y-[6px] font-nanum-r text-[15px] lg:text-[16px] text-primary-blog_black"
+                {...props}
+            >
                 {children}
             </ol>
         ),
         li: ({ children, ...props }: any) => (
-            <li className="leading-[26px]" {...props}>
+            <li className="leading-[1.75]" {...props}>
                 {children}
             </li>
         ),
 
-        // Table
+        // ── Table ─────────────────────────────────────────────────────────────
         table: ({ children, ...props }: any) => (
-            <div className="w-full max-w-[800px] mx-auto my-[25px] overflow-x-auto rounded-[12px] border border-[#E5E7EB] shadow-[0_2px_8px_rgba(0,0,0,0.02)]">
-                <table className="w-full border-collapse text-[15px] text-left" {...props}>
+            <div className="w-full my-[24px] overflow-x-auto rounded-[10px] border border-[#E5E7EB] shadow-[0_1px_4px_rgba(0,0,0,0.04)]">
+                <table className="w-full border-collapse text-[14px] text-left" {...props}>
                     {children}
                 </table>
             </div>
@@ -96,29 +126,29 @@ const MDRender: React.FC<MDRenderProps> = ({ content, postURL, postType }) => {
             </tbody>
         ),
         tr: ({ children, ...props }: any) => (
-            <tr className="hover:bg-[#F9FAFB] transition-colors border-b border-[#E5E7EB] last:border-b-0" {...props}>
+            <tr className="hover:bg-[#F9FAFB] transition-colors" {...props}>
                 {children}
             </tr>
         ),
         th: ({ children, ...props }: any) => (
-            <th className="px-[16px] py-[12px] font-bold border-r border-[#E5E7EB] last:border-r-0" {...props}>
+            <th className="px-[14px] py-[10px] font-bold border-r border-[#E5E7EB] last:border-r-0" {...props}>
                 {children}
             </th>
         ),
         td: ({ children, ...props }: any) => (
-            <td className="px-[16px] py-[12px] border-r border-[#E5E7EB] last:border-r-0 text-[#4B5563]" {...props}>
+            <td className="px-[14px] py-[10px] border-r border-[#E5E7EB] last:border-r-0 text-[#4B5563]" {...props}>
                 {children}
             </td>
         ),
 
-        // Code / Codeblocks
+        // ── Code / Codeblocks ─────────────────────────────────────────────────
         code: ({ className, children, ...props }: any) => {
             const match = /language-(\w+)/.exec(className || "");
             const inline = !match;
             return !inline ? (
-                <div className="w-full max-w-[800px] mx-auto my-[20px] text-left rounded-[12px] border border-[#E5E7EB]/40 overflow-hidden text-[14px] bg-[#1E1E1E] shadow-[0_4px_12px_rgba(0,0,0,0.08)]">
-                    {/* macOS terminal-style window bar */}
-                    <div className="flex items-center justify-between px-[16px] py-[10px] bg-[#2D3035] border-b border-[#1E1E1E] select-none">
+                <div className="w-full my-[20px] text-left rounded-[10px] border border-[#E5E7EB]/40 overflow-hidden text-[13px] bg-[#1E1E1E] shadow-[0_4px_12px_rgba(0,0,0,0.08)]">
+                    {/* macOS window bar */}
+                    <div className="flex items-center justify-between px-[14px] py-[8px] bg-[#2D3035] border-b border-[#1E1E1E] select-none">
                         <div className="flex items-center gap-[6px]">
                             <span className="w-[10px] h-[10px] rounded-full bg-[#FF5F56] block" />
                             <span className="w-[10px] h-[10px] rounded-full bg-[#FFBD2E] block" />
@@ -138,6 +168,8 @@ const MDRender: React.FC<MDRenderProps> = ({ content, postURL, postType }) => {
                             margin: 0,
                             padding: "16px",
                             background: "#1E1E1E",
+                            fontSize: "13px",
+                            lineHeight: "1.65",
                         }}
                         {...props}
                     >
@@ -146,7 +178,7 @@ const MDRender: React.FC<MDRenderProps> = ({ content, postURL, postType }) => {
                 </div>
             ) : (
                 <code
-                    className="bg-[#F3F4F6] text-[#E01E5A] px-[6px] py-[3px] rounded-[4px] font-mono text-[14px] border border-[#E5E7EB] break-words"
+                    className="bg-[#F3F4F6] text-[#D6336C] px-[5px] py-[2px] rounded-[4px] font-mono text-[13px] border border-[#E5E7EB] break-words"
                     {...props}
                 >
                     {children}
@@ -154,7 +186,7 @@ const MDRender: React.FC<MDRenderProps> = ({ content, postURL, postType }) => {
             );
         },
 
-        // Links
+        // ── Links ─────────────────────────────────────────────────────────────
         a: ({ children, href, ...props }: any) => {
             if (postType !== "about") {
                 return <LinkCard href={href}>{children}</LinkCard>;
@@ -173,11 +205,11 @@ const MDRender: React.FC<MDRenderProps> = ({ content, postURL, postType }) => {
             }
         },
 
-        // Images
+        // ── Images ────────────────────────────────────────────────────────────
         img: ({ src, width, ...props }: any) => {
             const imageSrc = `/api/getPostImage?postType=${postType}&postID=${postURL}&srcID=${src}`;
             return (
-                <div className="flex justify-center my-[20px]">
+                <div className="flex justify-center my-[24px]">
                     <img
                         src={imageSrc}
                         width={width}
@@ -189,31 +221,27 @@ const MDRender: React.FC<MDRenderProps> = ({ content, postURL, postType }) => {
             );
         },
 
-        // HR
+        // ── HR ────────────────────────────────────────────────────────────────
         hr: ({ ...props }: any) => (
-            <hr className="w-full max-w-[800px] border-0 bg-primary-blog_lightgray_3 h-[1px] my-[30px] mx-auto" {...props} />
+            <hr className="w-full border-0 bg-[#E5E7EB] h-[1px] my-[32px]" {...props} />
         ),
 
-        // Bold
+        // ── Inline text styles ────────────────────────────────────────────────
         strong: ({ children, ...props }: any) => (
             <strong className="text-primary-blog_blue font-black font-nanum-b" {...props}>
                 {children}
             </strong>
         ),
-
-        // Italic
         em: ({ children, ...props }: any) => (
             <em className="italic text-primary-blog_gray font-nanum-r" {...props}>
                 {children}
             </em>
         ),
-
-        // Deleted text
         del: ({ children, ...props }: any) => (
             <del className="line-through text-primary-blog_lightgray_1 font-nanum-r" {...props}>
                 {children}
             </del>
-        )
+        ),
     };
 
     return (

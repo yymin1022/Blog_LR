@@ -19,46 +19,47 @@ export default async function PostViewPage({
     const { PostContent, PostDate, PostTag, PostTitle, PostURL } = result.RESULT_DATA;
 
     return (
-        <div className="w-full flex flex-col items-center justify-center py-[50px] px-[20px] max-w-[900px] mx-auto">
+        <div className="w-full flex flex-col items-center py-[40px] lg:py-[60px] px-[20px] max-w-[860px] mx-auto animate-fade-in-up">
+
             {/* Header Block */}
-            <div className="w-full text-center">
-                <h1 className="text-[28px] min-[1400px]:text-[36px] font-black text-primary-blog_blue leading-tight mb-[16px] tracking-tight font-nanum-b">
+            <div className="w-full max-w-[720px] text-left">
+                {/* Tags row above title */}
+                <div className="flex flex-row flex-wrap gap-[6px] mb-[16px]">
+                    {PostTag.map((tag: string) => (
+                        <span
+                            key={tag}
+                            className="inline-block px-[10px] py-[3px] bg-[#EEF2FF] text-primary-blog_blue text-[12px] font-medium rounded-full font-nanum-r"
+                        >
+                            #{tag}
+                        </span>
+                    ))}
+                </div>
+
+                <h1 className="text-[24px] sm:text-[30px] lg:text-[34px] font-black text-primary-blog_blue leading-[1.3] tracking-tight font-nanum-b mb-[14px]">
                     {PostTitle}
                 </h1>
-                <div className="flex flex-row items-center justify-center text-[14px] text-[#888888] font-nanum-r gap-[8px] select-none">
+                <div className="flex flex-row items-center text-[13px] text-[#AAAAAA] font-nanum-r gap-[6px] select-none">
                     <span>written by <strong className="text-primary-blog_blue font-bold font-nanum-b">Useful</strong></span>
-                    <span className="text-[#DDDDDD]">•</span>
+                    <span className="text-[#DDDDDD]">·</span>
                     <span>{PostDate}</span>
                 </div>
             </div>
 
             {/* Separator line */}
-            <hr className="w-full max-w-[800px] border-0 bg-gradient-to-r from-transparent via-[#DDDDDD] to-transparent h-[1px] my-[30px]" />
+            <hr className="w-full max-w-[720px] border-0 bg-[#EEEEEE] h-[1px] my-[32px]" />
 
             {/* Markdown Content */}
-            <div className="w-full max-w-[800px]">
+            <div className="w-full max-w-[720px]">
                 <MDRender content={PostContent} postURL={PostURL} postType={type} />
             </div>
 
-            {/* Tags */}
-            <div className="flex flex-row flex-wrap justify-center mt-[50px] gap-[8px]">
-                {PostTag.map((tag: string) => (
-                    <span 
-                        key={tag} 
-                        className="inline-block px-[12px] py-[5px] bg-[#F3F4F6] text-[#4B5563] text-[13px] font-medium rounded-full font-nanum-r cursor-pointer hover:bg-[#E5E7EB] hover:text-primary-blog_blue transition-all duration-200"
-                    >
-                        #{tag}
-                    </span>
-                ))}
-            </div>
-
             {/* Comments block */}
-            <div className="w-full max-w-[800px] mt-[50px] border-t border-[#EEEEEE] pt-[30px]">
+            <div className="w-full max-w-[720px] mt-[60px] border-t border-[#EEEEEE] pt-[32px]">
                 <Utterances />
             </div>
 
             {/* Footer */}
-            <div className="h-[150px] w-full" />
+            <div className="h-[80px] w-full" />
         </div>
     );
 }
