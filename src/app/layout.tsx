@@ -15,9 +15,9 @@ export default function RootLayout({
     return (
         <html lang="en">
             <body>
-                <div className="w-full flex flex-row">
+                <div className="w-full flex flex-col lg:flex-row">
                     <SideMenu/>
-                    <div className="w-full">
+                    <div className="w-full lg:pl-[400px]">
                         {children}
                     </div>
                 </div>
