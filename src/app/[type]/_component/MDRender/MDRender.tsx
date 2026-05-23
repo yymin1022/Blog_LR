@@ -4,6 +4,7 @@ import rehypeRaw from "rehype-raw";
 import remarkGfm from "remark-gfm";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { darcula } from "react-syntax-highlighter/dist/esm/styles/prism";
+import LinkCard from "./LinkCard";
 
 interface MDRenderProps {
     content: string;
@@ -138,18 +139,7 @@ const MDRender: React.FC<MDRenderProps> = ({ content, postURL, postType }) => {
         // Links
         a: ({ children, href, ...props }: any) => {
             if (postType !== "about") {
-                return (
-                    <a target="_blank" href={href} rel="noopener noreferrer" className="block my-[15px]" {...props}>
-                        <span className="h-[100px] w-full max-w-[450px] mx-auto flex flex-col items-center justify-center border border-[#EEEEEE] rounded-[15px] shadow-[0_1px_2px_rgba(0,0,0,0.15)] transition-shadow duration-300 hover:shadow-[0_5px_15px_rgba(0,0,0,0.3)] px-[15px] block">
-                            <span className="text-primary-blog_blue text-[17px] font-black m-0 max-w-[90%] overflow-hidden no-underline whitespace-nowrap text-ellipsis block font-nanum-b">
-                                {children}
-                            </span>
-                            <span className="text-[#777777] text-[15px] font-medium m-0 mt-[5px] max-w-[90%] overflow-hidden no-underline whitespace-nowrap text-ellipsis block font-nanum-r">
-                                {href}
-                            </span>
-                        </span>
-                    </a>
-                );
+                return <LinkCard href={href}>{children}</LinkCard>;
             } else {
                 return (
                     <a
