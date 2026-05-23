@@ -17,14 +17,14 @@ const MDRenderer = (postURL: string, postType: string): Partial<MDRendererCompon
             if (postType !== "about") {
                 return (
                     <a target="_blank" href={href} rel="noopener noreferrer" className="block my-[15px]" {...props}>
-                        <div className="h-[100px] w-full max-w-[450px] mx-auto flex flex-col items-center justify-center border border-[#EEEEEE] rounded-[15px] shadow-[0_1px_2px_rgba(0,0,0,0.15)] transition-shadow duration-300 hover:shadow-[0_5px_15px_rgba(0,0,0,0.3)] px-[15px]">
-                            <p className="text-primary-blog_blue text-[17px] font-black m-0 max-w-[90%] overflow-hidden no-underline whitespace-nowrap text-ellipsis">
+                        <span className="h-[100px] w-full max-w-[450px] mx-auto flex flex-col items-center justify-center border border-[#EEEEEE] rounded-[15px] shadow-[0_1px_2px_rgba(0,0,0,0.15)] transition-shadow duration-300 hover:shadow-[0_5px_15px_rgba(0,0,0,0.3)] px-[15px] block">
+                            <span className="text-primary-blog_blue text-[17px] font-black m-0 max-w-[90%] overflow-hidden no-underline whitespace-nowrap text-ellipsis block">
                                 {children}
-                            </p>
-                            <p className="text-[#777777] text-[15px] font-medium m-0 mt-[5px] max-w-[90%] overflow-hidden no-underline whitespace-nowrap text-ellipsis">
+                            </span>
+                            <span className="text-[#777777] text-[15px] font-medium m-0 mt-[5px] max-w-[90%] overflow-hidden no-underline whitespace-nowrap text-ellipsis block">
                                 {href}
-                            </p>
-                        </div>
+                            </span>
+                        </span>
                     </a>
                 );
             } else {
@@ -94,9 +94,9 @@ const MDRenderer = (postURL: string, postType: string): Partial<MDRendererCompon
         ),
 
         p: ({ children, ...props }: any) => (
-            <p className="my-[15px] leading-[26px] text-primary-blog_black text-[16px] font-nanum-r text-justify max-w-[800px] mx-auto" {...props}>
+            <div className="my-[15px] leading-[26px] text-primary-blog_black text-[16px] font-nanum-r text-justify max-w-[800px] mx-auto" {...props}>
                 {children}
-            </p>
+            </div>
         )
     };
 };
