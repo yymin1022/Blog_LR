@@ -1,8 +1,5 @@
 import React from "react";
-import ReactMarkdown from "react-markdown";
-import rehypeRaw from "rehype-raw";
-import remarkGfm from "remark-gfm";
-import MDRenderer from "@/utils/MDRender";
+import MDRender from "../_component/MDRender/MDRender";
 import Utterances from "../_component/Utterances/Utterances";
 import { getFBPostData } from "@/utils/FirebaseUtil";
 import { notFound } from "next/navigation";
@@ -40,13 +37,7 @@ export default async function PostViewPage({
 
             {/* Markdown Content */}
             <div className="w-full max-w-[800px]">
-                <ReactMarkdown
-                    rehypePlugins={[rehypeRaw]}
-                    remarkPlugins={[remarkGfm]}
-                    components={MDRenderer(PostURL, type)}
-                >
-                    {PostContent}
-                </ReactMarkdown>
+                <MDRender content={PostContent} postURL={PostURL} postType={type} />
             </div>
 
             {/* Tags */}
