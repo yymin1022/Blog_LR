@@ -4,7 +4,7 @@ const HomePageDesktop = () => {
     return(
         <div className="flex flex-col mt-[200px] mx-[100px] select-none">
             <HomePageDesktopTitle isBlue={false} text={"안녕하세요"} delay="0ms" />
-            <HomePageDesktopTitle isBlue={true} text={"대학생 1인개발자"} delay="100ms" />
+            <HomePageDesktopTitle isBlue={true} text={"1인개발자"} delay="100ms" />
             <HomePageDesktopTitle isBlue={false} text={"Useful입니다."} delay="200ms" />
             <div className="h-[50px]" />
             <HomePageDesktopNav path={"/blog"} text={"Blog"} delay="400ms" />
