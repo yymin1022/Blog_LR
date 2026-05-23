@@ -19,7 +19,7 @@ export default async function PostListPage({
     const unpinnedPosts = postList.filter((post) => !post.postIsPinned);
 
     return (
-        <div className="w-full max-w-[1000px] flex flex-col items-center min-[1400px]:items-start mx-auto px-[20px] py-[30px] min-[1400px]:mx-[50px] min-[1400px]:my-[50px]">
+        <div className="w-full max-w-[1000px] flex flex-col items-center mx-auto px-[20px] py-[30px] lg:my-[50px]">
             {/* Pinned Posts */}
             <div className="w-full flex flex-row flex-wrap justify-center min-[1400px]:justify-between">
                 {pinnedPosts.map((post) => (
