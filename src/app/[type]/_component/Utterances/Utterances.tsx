@@ -7,6 +7,7 @@ const Utterances = () => {
 
     useEffect(() => {
         if (utterancesRef.current) {
+            utterancesRef.current.innerHTML = "";
             const utterances = document.createElement("script");
             utterances.setAttribute("src", "https://utteranc.es/client.js");
             utterances.setAttribute("async", "true");
