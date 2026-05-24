@@ -1,9 +1,36 @@
 import React, { Suspense } from "react";
+import type { Metadata } from "next";
 import MDRender from "../_component/MDRender/MDRender";
 import Utterances from "../_component/Utterances/Utterances";
 import { getFBPostData } from "@/utils/FirebaseUtil";
 import { notFound } from "next/navigation";
 import PostDetailLoading from "./loading";
+
+import { getCategoryNameKo } from "@/utils/CategoryUtil";
+
+export async function generateMetadata({
+    params,
+}: {
+    params: Promise<{ type: string; id: string }>;
+}): Promise<Metadata> {
+    const { type, id } = await params;
+    const result = await getFBPostData(type, id);
+
+    if (result.RESULT_CODE !== 200) {
+        return {
+            title: "Post Not Found - Useful Blog",
+        };
+    }
+
+    const { PostTitle, PostTag } = result.RESULT_DATA;
+    const categoryName = getCategoryNameKo(type);
+    const tagsString = PostTag && PostTag.length > 0 ? `. 태그: ${PostTag.join(", ")}` : "";
+
+    return {
+        title: `${PostTitle} - Useful Blog`,
+        description: `Useful의 ${categoryName} 포스팅: ${PostTitle}${tagsString}`,
+    };
+}
 
 export default async function PostViewPage({
     params,

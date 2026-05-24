@@ -47,43 +47,23 @@ const SideMenuMobile = () => {
                 <div className="fixed top-[65px] left-0 w-full bg-gradient-to-b from-[#1E5FC1] to-[#103D88] shadow-[0_15px_30px_rgba(0,0,0,0.2)] border-t border-white/10 p-[24px] z-50 select-none animate-fade-in-up flex flex-col gap-[24px]">
                     {/* Navigation Items */}
                     <div className="flex flex-col gap-[16px] font-nanum-r text-lg text-white/90">
-                        <Link 
-                            href="/blog" 
-                            onClick={closeMenu}
-                            className="py-[8px] border-b border-white/10 active:opacity-70 transition-opacity"
-                        >
-                            Blog
-                        </Link>
-                        <Link 
-                            href="/project" 
-                            onClick={closeMenu}
-                            className="py-[8px] border-b border-white/10 active:opacity-70 transition-opacity"
-                        >
-                            Project
-                        </Link>
-                        <Link 
-                            href="/solving" 
-                            onClick={closeMenu}
-                            className="py-[8px] border-b border-white/10 active:opacity-70 transition-opacity"
-                        >
-                            Problem Solving
-                        </Link>
-                        <Link 
-                            href="/about" 
-                            onClick={closeMenu}
-                            className="py-[8px] active:opacity-70 transition-opacity"
-                        >
-                            About Me
-                        </Link>
+                        {NAV_ITEMS.map(({ href, text, hasBorder }) => (
+                            <Link 
+                                key={href}
+                                href={href} 
+                                onClick={closeMenu}
+                                className={`py-[8px] ${hasBorder ? "border-b border-white/10" : ""} active:opacity-70 transition-opacity`}
+                            >
+                                {text}
+                            </Link>
+                        ))}
                     </div>
 
                     {/* Social Media Link Icons */}
                     <div className="flex flex-row justify-center gap-[24px] mt-[10px] pb-[10px] border-t border-white/10 pt-[24px]">
-                        <MobileSocialButton url={UrlData.facebook} icon={<FaFacebook size="1.8em" />} />
-                        <MobileSocialButton url={UrlData.github} icon={<FaGithub size="1.8em" />} />
-                        <MobileSocialButton url={UrlData.googleplay} icon={<FaGooglePlay size="1.8em" />} />
-                        <MobileSocialButton url={UrlData.instagram} icon={<FaInstagram size="1.8em" />} />
-                        <MobileSocialButton url={UrlData.linkedin} icon={<FaLinkedin size="1.8em" />} />
+                        {SOCIAL_LINKS.map(({ url, icon, label }) => (
+                            <MobileSocialButton key={url} url={url} icon={icon} label={label} />
+                        ))}
                     </div>
                 </div>
             )}
@@ -91,12 +71,28 @@ const SideMenuMobile = () => {
     );
 };
 
-const MobileSocialButton = ({ url, icon }: { url: UrlData; icon: React.ReactNode }) => {
+const NAV_ITEMS = [
+    { href: "/blog", text: "Blog", hasBorder: true },
+    { href: "/project", text: "Project", hasBorder: true },
+    { href: "/solving", text: "Problem Solving", hasBorder: true },
+    { href: "/about", text: "About Me", hasBorder: false },
+];
+
+const SOCIAL_LINKS = [
+    { url: UrlData.facebook, icon: <FaFacebook size="1.8em" />, label: "Facebook" },
+    { url: UrlData.github, icon: <FaGithub size="1.8em" />, label: "GitHub" },
+    { url: UrlData.googleplay, icon: <FaGooglePlay size="1.8em" />, label: "Google Play" },
+    { url: UrlData.instagram, icon: <FaInstagram size="1.8em" />, label: "Instagram" },
+    { url: UrlData.linkedin, icon: <FaLinkedin size="1.8em" />, label: "LinkedIn" },
+];
+
+const MobileSocialButton = ({ url, icon, label }: { url: UrlData; icon: React.ReactNode; label: string }) => {
     return (
         <Link 
             href={url} 
             target="_blank" 
             rel="noopener noreferrer" 
+            aria-label={label}
             className="text-white/80 active:opacity-75 transition-opacity"
         >
             {icon}
