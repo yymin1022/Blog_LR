@@ -1,6 +1,7 @@
 import { FirebaseApp, getApp, getApps, initializeApp } from "firebase/app";
 import { collection, doc, Firestore, getDoc, getDocs, getFirestore, orderBy, query } from "firebase/firestore";
 import fs from "fs";
+import path from "path";
 
 const firebaseConfig = {
     apiKey: process.env.FB_API_KEY,
@@ -29,6 +30,14 @@ export interface PostData {
     postURL: string;
 }
 
+function isSafeInput(input: string | null): boolean {
+    if (!input) return false;
+    if (input.includes("/") || input.includes("\\") || input.includes("..")) {
+        return false;
+    }
+    return true;
+}
+
 export const getFBPostList = async (postType: string) => {
     const db = initFB();
     const postList: PostData[] = [];
@@ -40,6 +49,12 @@ export const getFBPostList = async (postType: string) => {
             PostList: postList
         }
     };
+
+    if (!isSafeInput(postType)) {
+        resultData.RESULT_CODE = 100;
+        resultData.RESULT_MSG = "Invalid post type";
+        return resultData;
+    }
 
     try {
         const postCollectionList = await getDocs(
@@ -83,11 +98,17 @@ export const getFBPostData = async (postType: string, postID: string) => {
         }
     };
 
+    if (!isSafeInput(postType) || !isSafeInput(postID)) {
+        resultData.RESULT_CODE = 100;
+        resultData.RESULT_MSG = "Invalid parameters";
+        return resultData;
+    }
+
     try {
         const postDocData = await getDoc(doc(db, postType, postID));
         if (!postDocData.exists()) {
             resultData.RESULT_CODE = 100;
-            resultData.RESULT_MSG = "No Such Method!!";
+            resultData.RESULT_MSG = "Post not found";
             return resultData;
         }
         resultData.RESULT_DATA.PostDate = postDocData.data().date || "";
@@ -98,9 +119,22 @@ export const getFBPostData = async (postType: string, postID: string) => {
         const postURL = postDocData.data().url || "";
         resultData.RESULT_DATA.PostURL = postURL;
 
-        const postDataDir = process.env.POST_DATA_DIR || "";
-        const postDir = `${postDataDir}/${postType}/${postURL}`;
-        resultData.RESULT_DATA.PostContent = fs.readFileSync(`${postDir}/post.md`, "utf8");
+        if (!isSafeInput(postURL)) {
+            resultData.RESULT_CODE = 100;
+            resultData.RESULT_MSG = "Invalid post URL";
+            return resultData;
+        }
+
+        const postDataDir = path.resolve(process.env.POST_DATA_DIR || "");
+        const postFile = path.resolve(postDataDir, postType, postURL, "post.md");
+
+        if (!postFile.startsWith(postDataDir)) {
+            resultData.RESULT_CODE = 100;
+            resultData.RESULT_MSG = "Access Denied";
+            return resultData;
+        }
+
+        resultData.RESULT_DATA.PostContent = await fs.promises.readFile(postFile, "utf8");
 
         resultData.RESULT_CODE = 200;
         resultData.RESULT_MSG = "Success";
@@ -112,7 +146,7 @@ export const getFBPostData = async (postType: string, postID: string) => {
     return resultData;
 };
 
-export const getFBPostImage = (postType: string, postID: string, srcID: string) => {
+export const getFBPostImage = async (postType: string, postID: string, srcID: string) => {
     const resultData = {
         RESULT_CODE: 0,
         RESULT_MSG: "",
@@ -121,14 +155,35 @@ export const getFBPostImage = (postType: string, postID: string, srcID: string) 
         }
     };
 
-    const postDataDir = process.env.POST_DATA_DIR || "";
-    let srcDir = `${postDataDir}/${postType}`;
+    if (!isSafeInput(postType) || !isSafeInput(postID) || !isSafeInput(srcID)) {
+        resultData.RESULT_CODE = 100;
+        resultData.RESULT_MSG = "Invalid parameters";
+        return resultData;
+    }
+
+    const ALLOWED_EXTENSIONS = [".png", ".jpg", ".jpeg", ".gif", ".svg", ".webp"];
+    const ext = path.extname(srcID).toLowerCase();
+    if (!ALLOWED_EXTENSIONS.includes(ext)) {
+        resultData.RESULT_CODE = 100;
+        resultData.RESULT_MSG = "Invalid file extension";
+        return resultData;
+    }
+
+    const postDataDir = path.resolve(process.env.POST_DATA_DIR || "");
+    let srcDir = path.resolve(postDataDir, postType);
     if (postType !== "solving") {
-        srcDir = srcDir + `/${postID}`;
+        srcDir = path.resolve(srcDir, postID);
+    }
+    const filePath = path.resolve(srcDir, srcID);
+
+    if (!filePath.startsWith(postDataDir)) {
+        resultData.RESULT_CODE = 100;
+        resultData.RESULT_MSG = "Access Denied";
+        return resultData;
     }
 
     try {
-        const tempData = fs.readFileSync(`${srcDir}/${srcID}`);
+        const tempData = await fs.promises.readFile(filePath);
         resultData.RESULT_DATA.ImageData = Buffer.from(tempData).toString("base64");
 
         resultData.RESULT_CODE = 200;

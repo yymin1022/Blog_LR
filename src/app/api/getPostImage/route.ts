@@ -3,19 +3,43 @@ import { getFBPostImage } from "@/utils/FirebaseUtil";
 import fs from "fs";
 import path from "path";
 
+function isSafeInput(input: string | null): boolean {
+    if (!input) return false;
+    if (input.includes("/") || input.includes("\\") || input.includes("..")) {
+        return false;
+    }
+    return true;
+}
+
 export async function POST(req: NextRequest) {
     try {
         const body = await req.json();
         const { postID, postType, srcID } = body;
 
-        if (!postID || !postType || !srcID) {
+        if (typeof postID !== "string" || typeof postType !== "string" || typeof srcID !== "string") {
             return NextResponse.json({
                 RESULT_CODE: 100,
-                RESULT_MSG: "Missing parameters"
+                RESULT_MSG: "Invalid parameters"
             });
         }
 
-        const result = getFBPostImage(postType, postID, srcID);
+        if (!isSafeInput(postID) || !isSafeInput(postType) || !isSafeInput(srcID)) {
+            return NextResponse.json({
+                RESULT_CODE: 100,
+                RESULT_MSG: "Invalid parameters"
+            });
+        }
+
+        const ALLOWED_EXTENSIONS = [".png", ".jpg", ".jpeg", ".gif", ".svg", ".webp"];
+        const ext = path.extname(srcID).toLowerCase();
+        if (!ALLOWED_EXTENSIONS.includes(ext)) {
+            return NextResponse.json({
+                RESULT_CODE: 100,
+                RESULT_MSG: "Invalid file extension"
+            });
+        }
+
+        const result = await getFBPostImage(postType, postID, srcID);
         return NextResponse.json(result);
     } catch (error: any) {
         return NextResponse.json({
@@ -36,19 +60,35 @@ export async function GET(req: NextRequest) {
             return new Response("Missing parameters", { status: 400 });
         }
 
-        const postDataDir = process.env.POST_DATA_DIR || "";
-        let srcDir = `${postDataDir}/${postType}`;
-        if (postType !== "solving") {
-            srcDir = srcDir + `/${postID}`;
+        if (!isSafeInput(postID) || !isSafeInput(postType) || !isSafeInput(srcID)) {
+            return new Response("Invalid parameters", { status: 400 });
         }
 
-        const filePath = path.join(srcDir, srcID);
+        const ALLOWED_EXTENSIONS = [".png", ".jpg", ".jpeg", ".gif", ".svg", ".webp"];
+        const ext = path.extname(srcID).toLowerCase();
+        if (!ALLOWED_EXTENSIONS.includes(ext)) {
+            return new Response("Invalid file extension", { status: 400 });
+        }
+
+        const postDataDir = path.resolve(process.env.POST_DATA_DIR || "");
+        let srcDir = path.resolve(postDataDir, postType);
+        if (postType !== "solving") {
+            srcDir = path.resolve(srcDir, postID);
+        }
+
+        const filePath = path.resolve(srcDir, srcID);
+
+        // Enforce that resolved path remains under the POST_DATA_DIR
+        if (!filePath.startsWith(postDataDir)) {
+            return new Response("Access Denied", { status: 403 });
+        }
+
         if (!fs.existsSync(filePath)) {
             return new Response("Image not found", { status: 404 });
         }
 
-        const fileBuffer = fs.readFileSync(filePath);
-        const ext = path.extname(srcID).toLowerCase();
+        const fileBuffer = await fs.promises.readFile(filePath);
+        
         let contentType = "image/png";
         if (ext === ".jpg" || ext === ".jpeg") {
             contentType = "image/jpeg";
@@ -56,6 +96,8 @@ export async function GET(req: NextRequest) {
             contentType = "image/gif";
         } else if (ext === ".svg") {
             contentType = "image/svg+xml";
+        } else if (ext === ".webp") {
+            contentType = "image/webp";
         }
 
         return new Response(fileBuffer, {
