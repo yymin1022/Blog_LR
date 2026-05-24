@@ -1,8 +1,22 @@
 import React, { Suspense } from "react";
+import type { Metadata } from "next";
 import PostCard from "@/app/[type]/_component/PostCard/PostCard";
 import { getFBPostList, PostData } from "@/utils/FirebaseUtil";
 import { redirect } from "next/navigation";
 import PostListLoading from "./loading";
+
+export async function generateMetadata({
+    params,
+}: {
+    params: Promise<{ type: string }>;
+}): Promise<Metadata> {
+    const { type } = await params;
+    const formattedType = type.charAt(0).toUpperCase() + type.slice(1);
+    return {
+        title: `${formattedType} - Useful Blog`,
+        description: `Useful의 IT블로그: ${formattedType} 포스팅 목록`,
+    };
+}
 
 export default async function PostListPage({
     params,

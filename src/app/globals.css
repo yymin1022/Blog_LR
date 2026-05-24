@@ -9,54 +9,12 @@
   --color-primary-blog_lightgray_3: #DDDDDD;
   --color-primary-blog_white: #FFFFFF;
 
-  --font-nanum-b: NanumSquareB, sans-serif;
-  --font-nanum-l: NanumSquareL, sans-serif;
-  --font-nanum-r: NanumSquareR, sans-serif;
-  --font-pretendard-b: PretendardB, sans-serif;
-  --font-pretendard-l: PretendardL, sans-serif;
-  --font-pretendard-r: PretendardR, sans-serif;
-}
-
-@font-face {
-    font-family: "NanumSquareB";
-    src: url(../fonts/NanumSquareB.otf);
-    font-weight: normal;
-    font-style: normal;
-}
-
-@font-face {
-    font-family: "NanumSquareL";
-    src: url(../fonts/NanumSquareL.otf);
-    font-weight: normal;
-    font-style: normal;
-}
-
-@font-face {
-    font-family: "NanumSquareR";
-    src: url(../fonts/NanumSquareR.otf);
-    font-weight: normal;
-    font-style: normal;
-}
-
-@font-face {
-    font-family: "PretendardB";
-    src: url(../fonts/PretendardB.otf);
-    font-weight: normal;
-    font-style: normal;
-}
-
-@font-face {
-    font-family: "PretendardL";
-    src: url(../fonts/PretendardL.otf);
-    font-weight: normal;
-    font-style: normal;
-}
-
-@font-face {
-    font-family: "PretendardR";
-    src: url(../fonts/PretendardR.otf);
-    font-weight: normal;
-    font-style: normal;
+  --font-nanum-b: var(--font-nanum-b), sans-serif;
+  --font-nanum-l: var(--font-nanum-l), sans-serif;
+  --font-nanum-r: var(--font-nanum-r), sans-serif;
+  --font-pretendard-b: var(--font-pretendard-b), sans-serif;
+  --font-pretendard-l: var(--font-pretendard-l), sans-serif;
+  --font-pretendard-r: var(--font-pretendard-r), sans-serif;
 }
 
 html {
