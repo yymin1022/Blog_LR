@@ -8,11 +8,7 @@ interface PostCardProps {
 }
 
 const PostCard: React.FC<PostCardProps> = ({ post, postType }) => {
-    return (
-        <div className="hidden lg:block">
-            <PostCardDesktop post={post} postType={postType} />
-        </div>
-    );
+    return <PostCardDesktop post={post} postType={postType} />;
 };
 
 export default PostCard;

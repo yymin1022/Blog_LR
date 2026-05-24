@@ -1,11 +1,17 @@
 import SideMenuDesktop from "@/app/_component/SideMenu/SideMenuDesktop";
+import SideMenuMobile from "@/app/_component/SideMenu/SideMenuMobile";
 
 const SideMenu = () => {
-    return(
-        <div className="invisible lg:visible">
-            <SideMenuDesktop />
-        </div>
+    return (
+        <>
+            <div className="hidden lg:block">
+                <SideMenuDesktop />
+            </div>
+            <div className="block lg:hidden">
+                <SideMenuMobile />
+            </div>
+        </>
     );
-}
+};
 
 export default SideMenu;

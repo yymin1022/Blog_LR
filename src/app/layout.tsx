@@ -17,7 +17,7 @@ export default function RootLayout({
             <body>
                 <div className="w-full flex flex-col lg:flex-row">
                     <SideMenu/>
-                    <div className="w-full lg:pl-[400px]">
+                    <div className="w-full pt-[65px] lg:pt-0 lg:pl-[400px]">
                         {children}
                     </div>
                 </div>
