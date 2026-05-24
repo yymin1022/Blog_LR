@@ -3,6 +3,16 @@ import Link from "next/link";
 import React from "react";
 import {UrlData} from "@/utils/UrlData";
 
+import { IconType } from "react-icons";
+
+const SOCIAL_LINKS = [
+    { url: UrlData.facebook, Icon: FaFacebook, label: "Facebook" },
+    { url: UrlData.github, Icon: FaGithub, label: "GitHub" },
+    { url: UrlData.googleplay, Icon: FaGooglePlay, label: "Google Play" },
+    { url: UrlData.instagram, Icon: FaInstagram, label: "Instagram" },
+    { url: UrlData.linkedin, Icon: FaLinkedin, label: "LinkedIn" },
+];
+
 const SideMenuDesktop = () => {
     return(
         <div className="fixed left-0 top-0 h-screen w-[400px] flex flex-col justify-end bg-gradient-to-br from-[#1E5FC1] to-[#103D88] shadow-[4px_0_20px_rgba(0,0,0,0.08)]">
@@ -22,34 +32,23 @@ const SideMenuDivider = () => {
 const SideMenuNav = () => {
     return(
         <div className="flex flex-row justify-evenly mb-[50px]">
-            <SideMenuNavButton url={UrlData.facebook}/>
-            <SideMenuNavButton url={UrlData.github}/>
-            <SideMenuNavButton url={UrlData.googleplay}/>
-            <SideMenuNavButton url={UrlData.instagram}/>
-            <SideMenuNavButton url={UrlData.linkedin}/>
+            {SOCIAL_LINKS.map(({ url, Icon, label }) => (
+                <SideMenuNavButton key={url} url={url} Icon={Icon} label={label} />
+            ))}
         </div>
     );
 }
 
-const SideMenuNavButton = ({url}: {url: UrlData}) => {
+const SideMenuNavButton = ({ url, Icon, label }: { url: string; Icon: IconType; label: string }) => {
     return(
         <Link 
             href={url} 
             target="_blank" 
             rel="noopener noreferrer" 
+            aria-label={label}
             className="hover:scale-115 active:scale-95 transition-all duration-300 hover:drop-shadow-[0_0_8px_rgba(255,255,255,0.5)]"
         >
-            {
-                url == UrlData.facebook ?
-                    <FaFacebook color="white" size="2em" />
-                    : url == UrlData.github ?
-                        <FaGithub color="white" size="2em" />
-                        : url == UrlData.googleplay ?
-                            <FaGooglePlay color="white" size="2em" />
-                            : url == UrlData.instagram ?
-                                <FaInstagram color="white" size="2em" />
-                                : <FaLinkedin color="white" size="2em" />
-            }
+            <Icon color="white" size="2em" />
         </Link>
     );
 }

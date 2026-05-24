@@ -2,6 +2,7 @@ import { FirebaseApp, getApp, getApps, initializeApp } from "firebase/app";
 import { collection, doc, Firestore, getDoc, getDocs, getFirestore, orderBy, query } from "firebase/firestore";
 import fs from "fs";
 import path from "path";
+import { cache } from "react";
 
 const firebaseConfig = {
     apiKey: process.env.FB_API_KEY,
@@ -38,7 +39,7 @@ function isSafeInput(input: string | null): boolean {
     return true;
 }
 
-export const getFBPostList = async (postType: string) => {
+export const getFBPostList = cache(async (postType: string) => {
     const db = initFB();
     const postList: PostData[] = [];
     const resultData = {
@@ -81,9 +82,9 @@ export const getFBPostList = async (postType: string) => {
     }
 
     return resultData;
-};
+});
 
-export const getFBPostData = async (postType: string, postID: string) => {
+export const getFBPostData = cache(async (postType: string, postID: string) => {
     const db = initFB();
     const resultData = {
         RESULT_CODE: 0,
@@ -144,7 +145,7 @@ export const getFBPostData = async (postType: string, postID: string) => {
     }
 
     return resultData;
-};
+});
 
 export const getFBPostImage = async (postType: string, postID: string, srcID: string) => {
     const resultData = {
