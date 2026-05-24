@@ -1,8 +1,9 @@
-import React from "react";
+import React, { Suspense } from "react";
 import MDRender from "../_component/MDRender/MDRender";
 import Utterances from "../_component/Utterances/Utterances";
 import { getFBPostData } from "@/utils/FirebaseUtil";
 import { notFound } from "next/navigation";
+import PostDetailLoading from "./loading";
 
 export default async function PostViewPage({
     params,
@@ -10,6 +11,15 @@ export default async function PostViewPage({
     params: Promise<{ type: string; id: string }>;
 }) {
     const { type, id } = await params;
+
+    return (
+        <Suspense fallback={<PostDetailLoading />}>
+            <PostViewContent type={type} id={id} />
+        </Suspense>
+    );
+}
+
+async function PostViewContent({ type, id }: { type: string; id: string }) {
     const result = await getFBPostData(type, id);
 
     if (result.RESULT_CODE !== 200) {
