@@ -1,11 +1,75 @@
-export default function PostList(
-    { params }: { params: { type: string, id: string } }
-) {
+import React, { Suspense } from "react";
+import MDRender from "../_component/MDRender/MDRender";
+import Utterances from "../_component/Utterances/Utterances";
+import { getFBPostData } from "@/utils/FirebaseUtil";
+import { notFound } from "next/navigation";
+import PostDetailLoading from "./loading";
+
+export default async function PostViewPage({
+    params,
+}: {
+    params: Promise<{ type: string; id: string }>;
+}) {
+    const { type, id } = await params;
+
     return (
-        <div>
-            {
-                `${params.type} ${params.id} PostView Page`
-            }
+        <Suspense fallback={<PostDetailLoading />}>
+            <PostViewContent type={type} id={id} />
+        </Suspense>
+    );
+}
+
+async function PostViewContent({ type, id }: { type: string; id: string }) {
+    const result = await getFBPostData(type, id);
+
+    if (result.RESULT_CODE !== 200) {
+        notFound();
+    }
+
+    const { PostContent, PostDate, PostTag, PostTitle, PostURL } = result.RESULT_DATA;
+
+    return (
+        <div className="w-full flex flex-col items-center py-[40px] lg:py-[60px] px-[20px] max-w-[860px] mx-auto animate-fade-in-up">
+
+            {/* Header Block */}
+            <div className="w-full max-w-[720px] text-left">
+                {/* Tags row above title */}
+                <div className="flex flex-row flex-wrap gap-[6px] mb-[16px]">
+                    {PostTag.map((tag: string) => (
+                        <span
+                            key={tag}
+                            className="inline-block px-[10px] py-[3px] bg-[#EEF2FF] text-primary-blog_blue text-[12px] font-medium rounded-full font-nanum-r"
+                        >
+                            #{tag}
+                        </span>
+                    ))}
+                </div>
+
+                <h1 className="text-[24px] sm:text-[30px] lg:text-[34px] font-black text-primary-blog_blue leading-[1.3] tracking-tight font-nanum-b mb-[14px]">
+                    {PostTitle}
+                </h1>
+                <div className="flex flex-row items-center text-[13px] text-[#AAAAAA] font-nanum-r gap-[6px] select-none">
+                    <span>written by <strong className="text-primary-blog_blue font-bold font-nanum-b">Useful</strong></span>
+                    <span className="text-[#DDDDDD]">·</span>
+                    <span>{PostDate}</span>
+                </div>
+            </div>
+
+            {/* Separator line */}
+            <hr className="w-full max-w-[720px] border-0 bg-[#EEEEEE] h-[1px] my-[32px]" />
+
+            {/* Markdown Content */}
+            <div className="w-full max-w-[720px]">
+                <MDRender content={PostContent} postURL={PostURL} postType={type} />
+            </div>
+
+            {/* Comments block */}
+            <div className="w-full max-w-[720px] mt-[60px] border-t border-[#EEEEEE] pt-[32px]">
+                <Utterances />
+            </div>
+
+            {/* Footer */}
+            <div className="h-[80px] w-full" />
         </div>
     );
 }

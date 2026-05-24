@@ -1,6 +1,21 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+
+@theme {
+  --color-primary-blog_black: #000000;
+  --color-primary-blog_blue: #164EAB;
+  --color-primary-blog_gray: #606060;
+  --color-primary-blog_lightgray_1: #808080;
+  --color-primary-blog_lightgray_2: #AAAAAA;
+  --color-primary-blog_lightgray_3: #DDDDDD;
+  --color-primary-blog_white: #FFFFFF;
+
+  --font-nanum-b: NanumSquareB, sans-serif;
+  --font-nanum-l: NanumSquareL, sans-serif;
+  --font-nanum-r: NanumSquareR, sans-serif;
+  --font-pretendard-b: PretendardB, sans-serif;
+  --font-pretendard-l: PretendardL, sans-serif;
+  --font-pretendard-r: PretendardR, sans-serif;
+}
 
 @font-face {
     font-family: "NanumSquareB";
@@ -44,8 +59,21 @@
     font-style: normal;
 }
 
-@layer base {
-    html {
-        font-family: "NanumSquareR", system-ui, sans-serif;
+html {
+    font-family: var(--font-nanum-r), system-ui, sans-serif;
+}
+
+@utility animate-fade-in-up {
+    animation: fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
     }
 }

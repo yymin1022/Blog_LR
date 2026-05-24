@@ -1,0 +1,107 @@
+"use client";
+
+import React, { useState } from "react";
+import Link from "next/link";
+import { FaBars, FaXmark, FaFacebook, FaGithub, FaGooglePlay, FaInstagram, FaLinkedin } from "react-icons/fa6";
+import { UrlData } from "@/utils/UrlData";
+
+const SideMenuMobile = () => {
+    const [isOpen, setIsOpen] = useState(false);
+
+    const toggleMenu = () => {
+        setIsOpen(!isOpen);
+    };
+
+    const closeMenu = () => {
+        setIsOpen(false);
+    };
+
+    return (
+        <div className="relative">
+            {/* Top Bar Header */}
+            <div className="fixed top-0 left-0 w-full h-[65px] bg-gradient-to-r from-[#1E5FC1] to-[#103D88] shadow-[0_2px_12px_rgba(0,0,0,0.1)] flex items-center justify-between px-[20px] z-50 select-none">
+                <Link href="/" onClick={closeMenu} className="flex items-center gap-[6px]">
+                    <span className="font-nanum-l text-[20px] text-white">Useful한</span>
+                    <span className="font-nanum-b font-black text-[20px] text-white">IT블로그</span>
+                </Link>
+
+                <button 
+                    onClick={toggleMenu}
+                    className="text-white hover:opacity-85 transition-opacity p-[4px] focus:outline-none"
+                    aria-label="Toggle Menu"
+                >
+                    {isOpen ? <FaXmark size="1.8em" /> : <FaBars size="1.8em" />}
+                </button>
+            </div>
+
+            {/* Backdrop Blur Overlay */}
+            {isOpen && (
+                <div 
+                    className="fixed inset-0 bg-black/45 backdrop-blur-sm z-40"
+                    onClick={closeMenu}
+                />
+            )}
+
+            {/* Sliding Mobile Drawer Panel */}
+            {isOpen && (
+                <div className="fixed top-[65px] left-0 w-full bg-gradient-to-b from-[#1E5FC1] to-[#103D88] shadow-[0_15px_30px_rgba(0,0,0,0.2)] border-t border-white/10 p-[24px] z-50 select-none animate-fade-in-up flex flex-col gap-[24px]">
+                    {/* Navigation Items */}
+                    <div className="flex flex-col gap-[16px] font-nanum-r text-lg text-white/90">
+                        <Link 
+                            href="/blog" 
+                            onClick={closeMenu}
+                            className="py-[8px] border-b border-white/10 active:opacity-70 transition-opacity"
+                        >
+                            Blog
+                        </Link>
+                        <Link 
+                            href="/project" 
+                            onClick={closeMenu}
+                            className="py-[8px] border-b border-white/10 active:opacity-70 transition-opacity"
+                        >
+                            Project
+                        </Link>
+                        <Link 
+                            href="/solving" 
+                            onClick={closeMenu}
+                            className="py-[8px] border-b border-white/10 active:opacity-70 transition-opacity"
+                        >
+                            Problem Solving
+                        </Link>
+                        <Link 
+                            href="/about" 
+                            onClick={closeMenu}
+                            className="py-[8px] active:opacity-70 transition-opacity"
+                        >
+                            About Me
+                        </Link>
+                    </div>
+
+                    {/* Social Media Link Icons */}
+                    <div className="flex flex-row justify-center gap-[24px] mt-[10px] pb-[10px] border-t border-white/10 pt-[24px]">
+                        <MobileSocialButton url={UrlData.facebook} icon={<FaFacebook size="1.8em" />} />
+                        <MobileSocialButton url={UrlData.github} icon={<FaGithub size="1.8em" />} />
+                        <MobileSocialButton url={UrlData.googleplay} icon={<FaGooglePlay size="1.8em" />} />
+                        <MobileSocialButton url={UrlData.instagram} icon={<FaInstagram size="1.8em" />} />
+                        <MobileSocialButton url={UrlData.linkedin} icon={<FaLinkedin size="1.8em" />} />
+                    </div>
+                </div>
+            )}
+        </div>
+    );
+};
+
+const MobileSocialButton = ({ url, icon }: { url: UrlData; icon: React.ReactNode }) => {
+    return (
+        <Link 
+            href={url} 
+            target="_blank" 
+            rel="noopener noreferrer" 
+            className="text-white/80 active:opacity-75 transition-opacity"
+        >
+            {icon}
+        </Link>
+    );
+};
+
+export default SideMenuMobile;

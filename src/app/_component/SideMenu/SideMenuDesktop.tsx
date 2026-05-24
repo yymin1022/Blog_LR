@@ -5,7 +5,7 @@ import {UrlData} from "@/utils/UrlData";
 
 const SideMenuDesktop = () => {
     return(
-        <div className="h-screen w-[400px] flex flex-col justify-end bg-primary-blog_blue">
+        <div className="fixed left-0 top-0 h-screen w-[400px] flex flex-col justify-end bg-gradient-to-br from-[#1E5FC1] to-[#103D88] shadow-[4px_0_20px_rgba(0,0,0,0.08)]">
             <SideMenuTitle />
             <SideMenuDivider />
             <SideMenuNav />
@@ -15,7 +15,7 @@ const SideMenuDesktop = () => {
 
 const SideMenuDivider = () => {
     return(
-        <div className="h-[1px] bg-primary-blog_white mx-[20px] my-[30px]" />
+        <div className="h-[1px] bg-gradient-to-r from-transparent via-white/20 to-transparent mx-[20px] my-[30px]" />
     );
 }
 
@@ -33,7 +33,12 @@ const SideMenuNav = () => {
 
 const SideMenuNavButton = ({url}: {url: UrlData}) => {
     return(
-        <Link href={url}>
+        <Link 
+            href={url} 
+            target="_blank" 
+            rel="noopener noreferrer" 
+            className="hover:scale-115 active:scale-95 transition-all duration-300 hover:drop-shadow-[0_0_8px_rgba(255,255,255,0.5)]"
+        >
             {
                 url == UrlData.facebook ?
                     <FaFacebook color="white" size="2em" />
@@ -51,10 +56,10 @@ const SideMenuNavButton = ({url}: {url: UrlData}) => {
 
 const SideMenuTitle = () => {
     return(
-        <Link href={"/"}>
-            <div className="flex flex-col mx-[30px] font-nanum-l text-6xl text-primary-blog_white">
-                LR의<br/>
-                IT블로그
+        <Link href={"/"} className="group">
+            <div className="flex flex-col mx-[30px] font-nanum-l text-5xl text-primary-blog_white transition-all duration-300 group-hover:translate-x-1">
+                Useful한<br/>
+                <span className="font-nanum-b font-black mt-[10px] text-5xl">IT블로그</span>
             </div>
         </Link>
     );

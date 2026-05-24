@@ -3,8 +3,8 @@ import SideMenu from "@/app/_component/SideMenu/SideMenu";
 import "./globals.css";
 
 export const metadata: Metadata = {
-    title: "Dev. LR Blog",
-    description: "1인개발자 LR의 IT블로그",
+    title: "Useful Blog",
+    description: "1인개발자 Useful의 IT블로그",
 };
 
 export default function RootLayout({
@@ -15,9 +15,9 @@ export default function RootLayout({
     return (
         <html lang="en">
             <body>
-                <div className="w-full flex flex-row">
+                <div className="w-full flex flex-col lg:flex-row">
                     <SideMenu/>
-                    <div className="w-full">
+                    <div className="w-full pt-[65px] lg:pt-0 lg:pl-[400px]">
                         {children}
                     </div>
                 </div>
