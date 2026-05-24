@@ -5,16 +5,18 @@ import { getFBPostList, PostData } from "@/utils/FirebaseUtil";
 import { redirect } from "next/navigation";
 import PostListLoading from "./loading";
 
+import { getCategoryNameEn } from "@/utils/CategoryUtil";
+
 export async function generateMetadata({
     params,
 }: {
     params: Promise<{ type: string }>;
 }): Promise<Metadata> {
     const { type } = await params;
-    const formattedType = type.charAt(0).toUpperCase() + type.slice(1);
+    const categoryName = getCategoryNameEn(type);
     return {
-        title: `${formattedType} - Useful Blog`,
-        description: `Useful의 IT블로그: ${formattedType} 포스팅 목록`,
+        title: `${categoryName} - Useful Blog`,
+        description: `Useful의 IT블로그: ${categoryName} 포스팅 목록`,
     };
 }
 

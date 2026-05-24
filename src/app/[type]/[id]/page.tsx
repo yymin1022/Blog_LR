@@ -6,6 +6,8 @@ import { getFBPostData } from "@/utils/FirebaseUtil";
 import { notFound } from "next/navigation";
 import PostDetailLoading from "./loading";
 
+import { getCategoryNameKo } from "@/utils/CategoryUtil";
+
 export async function generateMetadata({
     params,
 }: {
@@ -21,10 +23,12 @@ export async function generateMetadata({
     }
 
     const { PostTitle, PostTag } = result.RESULT_DATA;
+    const categoryName = getCategoryNameKo(type);
+    const tagsString = PostTag && PostTag.length > 0 ? `. 태그: ${PostTag.join(", ")}` : "";
 
     return {
         title: `${PostTitle} - Useful Blog`,
-        description: `Useful의 ${type} 포스팅: ${PostTitle}. 태그: ${PostTag.join(", ")}`,
+        description: `Useful의 ${categoryName} 포스팅: ${PostTitle}${tagsString}`,
     };
 }
 

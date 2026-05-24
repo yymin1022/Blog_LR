@@ -9,16 +9,16 @@
   --color-primary-blog_lightgray_3: #DDDDDD;
   --color-primary-blog_white: #FFFFFF;
 
-  --font-nanum-b: var(--font-nanum-b), sans-serif;
-  --font-nanum-l: var(--font-nanum-l), sans-serif;
-  --font-nanum-r: var(--font-nanum-r), sans-serif;
-  --font-pretendard-b: var(--font-pretendard-b), sans-serif;
-  --font-pretendard-l: var(--font-pretendard-l), sans-serif;
-  --font-pretendard-r: var(--font-pretendard-r), sans-serif;
+  --font-nanum-b: var(--font-nanum-b-next), sans-serif;
+  --font-nanum-l: var(--font-nanum-l-next), sans-serif;
+  --font-nanum-r: var(--font-nanum-r-next), sans-serif;
+  --font-pretendard-b: var(--font-pretendard-b-next), sans-serif;
+  --font-pretendard-l: var(--font-pretendard-l-next), sans-serif;
+  --font-pretendard-r: var(--font-pretendard-r-next), sans-serif;
 }
 
 html {
-    font-family: var(--font-nanum-r), system-ui, sans-serif;
+    font-family: var(--font-nanum-r-next), system-ui, sans-serif;
 }
 
 @utility animate-fade-in-up {

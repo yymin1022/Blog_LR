@@ -5,28 +5,28 @@ import "./globals.css";
 
 const nanumSquareL = localFont({
     src: "../fonts/NanumSquareL.otf",
-    variable: "--font-nanum-l",
+    variable: "--font-nanum-l-next",
 });
 const nanumSquareR = localFont({
     src: "../fonts/NanumSquareR.otf",
-    variable: "--font-nanum-r",
+    variable: "--font-nanum-r-next",
 });
 const nanumSquareB = localFont({
     src: "../fonts/NanumSquareB.otf",
-    variable: "--font-nanum-b",
+    variable: "--font-nanum-b-next",
 });
 
 const pretendardL = localFont({
     src: "../fonts/PretendardL.otf",
-    variable: "--font-pretendard-l",
+    variable: "--font-pretendard-l-next",
 });
 const pretendardR = localFont({
     src: "../fonts/PretendardR.otf",
-    variable: "--font-pretendard-r",
+    variable: "--font-pretendard-r-next",
 });
 const pretendardB = localFont({
     src: "../fonts/PretendardB.otf",
-    variable: "--font-pretendard-b",
+    variable: "--font-pretendard-b-next",
 });
 
 export const metadata: Metadata = {
@@ -41,7 +41,7 @@ export default function RootLayout({
 }>) {
     return (
         <html 
-            lang="en"
+            lang="ko"
             className={`${nanumSquareL.variable} ${nanumSquareR.variable} ${nanumSquareB.variable} ${pretendardL.variable} ${pretendardR.variable} ${pretendardB.variable}`}
         >
             <body>
