@@ -7,8 +7,8 @@ export default function PostListLoading() {
             {/* ── Featured Posts Section Skeleton ─────────────── */}
             <div className="w-full mb-[10px]">
                 <div className="flex items-center gap-[8px] mb-[6px]">
-                    <span className="w-[3px] h-[16px] bg-primary-blog_blue/30 rounded-full animate-pulse" />
-                    <span className="text-[12px] font-bold text-primary-blog_blue/40 uppercase tracking-widest font-nanum-b">Featured</span>
+                    <span className="w-[3px] h-[16px] bg-primary-blog_blue/15 rounded-full animate-pulse" />
+                    <span className="text-[12px] font-bold text-primary-blog_blue/20 uppercase tracking-widest font-nanum-b">Featured</span>
                 </div>
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-[20px] w-full">
                     <PinnedCardSkeleton />
@@ -17,13 +17,13 @@ export default function PostListLoading() {
             </div>
 
             {/* Divider */}
-            <hr className="w-full border-0 bg-gradient-to-r from-transparent via-[#DDDDDD]/50 to-transparent h-[1px] my-[16px]" />
+            <hr className="w-full border-0 bg-gradient-to-r from-transparent via-[#DDDDDD]/25 to-transparent h-[1px] my-[16px]" />
 
             {/* ── Regular Posts Grid Skeleton ───────────────────── */}
             <div className="w-full">
                 <div className="flex items-center gap-[8px] mb-[12px]">
-                    <span className="w-[3px] h-[16px] bg-[#DDDDDD]/60 rounded-full animate-pulse" />
-                    <span className="text-[12px] font-bold text-[#9CA3AF]/60 uppercase tracking-widest font-nanum-b">Posts</span>
+                    <span className="w-[3px] h-[16px] bg-[#DDDDDD]/30 rounded-full animate-pulse" />
+                    <span className="text-[12px] font-bold text-[#9CA3AF]/35 uppercase tracking-widest font-nanum-b">Posts</span>
                 </div>
                 <div className="w-full flex flex-row flex-wrap justify-center min-[1400px]:justify-between">
                     <RegularCardSkeleton />
