@@ -84,6 +84,7 @@ export const getFBPostList = cache(async (postType: string) => {
 });
 
 export const CDN_BASE_URL = "https://cdn.jsdelivr.net/gh/yymin1022/Blog_LR_Data@master";
+export const SITE_URL = process.env.URL_PUB || "https://dev-lr.com";
 
 export async function fetchWithTimeout(resource: string, options: RequestInit & { timeout?: number } = {}) {
     const { timeout = 8000 } = options;

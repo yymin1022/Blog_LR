@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import SideMenu from "@/app/_component/SideMenu/SideMenu";
 import "./globals.css";
+import { SITE_URL } from "@/utils/FirebaseUtil";
 
 const nanumSquareL = localFont({
     src: "../fonts/NanumSquareL.otf",
@@ -29,10 +30,8 @@ const pretendardB = localFont({
     variable: "--font-pretendard-b-next",
 });
 
-const siteUrl = process.env.URL_PUB || "https://dev-lr.com";
-
 export const metadata: Metadata = {
-    metadataBase: new URL(siteUrl),
+    metadataBase: new URL(SITE_URL),
     title: {
         default: "Useful Blog",
         template: "%s - Useful Blog",
@@ -41,7 +40,7 @@ export const metadata: Metadata = {
     openGraph: {
         title: "Useful Blog",
         description: "1인개발자 Useful의 IT블로그",
-        url: siteUrl,
+        url: SITE_URL,
         siteName: "Useful Blog",
         locale: "ko_KR",
         type: "website",

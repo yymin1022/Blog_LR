@@ -77,8 +77,8 @@ export async function GET(req: NextRequest) {
 
         const response = await fetchWithTimeout(url);
         if (!response.ok) {
-            const siteUrl = process.env.URL_PUB || "https://dev-lr.com";
-            return NextResponse.redirect(`${siteUrl}/logo.png`, 307);
+            const { origin } = new URL(req.url);
+            return NextResponse.redirect(`${origin}/logo.png`, 307);
         }
 
         const arrayBuffer = await response.arrayBuffer();

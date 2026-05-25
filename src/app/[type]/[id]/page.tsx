@@ -2,7 +2,7 @@ import React, { Suspense } from "react";
 import type { Metadata } from "next";
 import MDRender from "../_component/MDRender/MDRender";
 import Utterances from "../_component/Utterances/Utterances";
-import { getFBPostData } from "@/utils/FirebaseUtil";
+import { getFBPostData, SITE_URL } from "@/utils/FirebaseUtil";
 import { notFound } from "next/navigation";
 import PostDetailLoading from "./loading";
 
@@ -45,6 +45,7 @@ export async function generateMetadata({
         openGraph: {
             title: `${PostTitle} - Useful Blog`,
             description,
+            url: `${SITE_URL}/${type}/${id}`,
             type: "article",
             images: [
                 {
