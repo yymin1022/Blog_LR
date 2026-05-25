@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import SideMenu from "@/app/_component/SideMenu/SideMenu";
 import "./globals.css";
+import { SITE_URL } from "@/utils/FirebaseUtil";
 
 const nanumSquareL = localFont({
     src: "../fonts/NanumSquareL.otf",
@@ -30,8 +31,34 @@ const pretendardB = localFont({
 });
 
 export const metadata: Metadata = {
-    title: "Useful Blog",
+    metadataBase: new URL(SITE_URL),
+    title: {
+        default: "Useful Blog",
+        template: "%s - Useful Blog",
+    },
     description: "1인개발자 Useful의 IT블로그",
+    openGraph: {
+        title: "Useful Blog",
+        description: "1인개발자 Useful의 IT블로그",
+        url: SITE_URL,
+        siteName: "Useful Blog",
+        locale: "ko_KR",
+        type: "website",
+        images: [
+            {
+                url: "/logo.png",
+                width: 512,
+                height: 512,
+                alt: "Useful Blog Logo",
+            },
+        ],
+    },
+    twitter: {
+        card: "summary",
+        title: "Useful Blog",
+        description: "1인개발자 Useful의 IT블로그",
+        images: ["/logo.png"],
+    },
 };
 
 export default function RootLayout({

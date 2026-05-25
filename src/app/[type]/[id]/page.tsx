@@ -2,7 +2,7 @@ import React, { Suspense } from "react";
 import type { Metadata } from "next";
 import MDRender from "../_component/MDRender/MDRender";
 import Utterances from "../_component/Utterances/Utterances";
-import { getFBPostData } from "@/utils/FirebaseUtil";
+import { getFBPostData, SITE_URL } from "@/utils/FirebaseUtil";
 import { notFound } from "next/navigation";
 import PostDetailLoading from "./loading";
 
@@ -18,17 +18,50 @@ export async function generateMetadata({
 
     if (result.RESULT_CODE !== 200) {
         return {
-            title: "Post Not Found - Useful Blog",
+            title: "Post Not Found",
         };
     }
 
     const { PostTitle, PostTag } = result.RESULT_DATA;
     const categoryName = getCategoryNameKo(type);
     const tagsString = PostTag && PostTag.length > 0 ? `. 태그: ${PostTag.join(", ")}` : "";
+    const description = `Useful의 ${categoryName} 포스팅: ${PostTitle}${tagsString}`;
+
+    // Determine dynamic OG image
+    let imageUrl = "/logo.png";
+    if (type === "solving") {
+        if (id.startsWith("boj")) {
+            imageUrl = "/api/getPostImage?postType=solving&postID=dummy&srcID=thumb_boj.png";
+        } else if (id.startsWith("programmers")) {
+            imageUrl = "/api/getPostImage?postType=solving&postID=dummy&srcID=thumb_programmers.png";
+        }
+    } else {
+        imageUrl = `/api/getPostImage?postType=${type}&postID=${id}&srcID=post.png`;
+    }
 
     return {
-        title: `${PostTitle} - Useful Blog`,
-        description: `Useful의 ${categoryName} 포스팅: ${PostTitle}${tagsString}`,
+        title: PostTitle,
+        description,
+        openGraph: {
+            title: `${PostTitle} - Useful Blog`,
+            description,
+            url: `${SITE_URL}/${type}/${id}`,
+            type: "article",
+            images: [
+                {
+                    url: imageUrl,
+                    width: 1200,
+                    height: 630,
+                    alt: PostTitle,
+                },
+            ],
+        },
+        twitter: {
+            card: "summary_large_image",
+            title: `${PostTitle} - Useful Blog`,
+            description,
+            images: [imageUrl],
+        },
     };
 }
 

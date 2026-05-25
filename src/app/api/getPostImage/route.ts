@@ -77,7 +77,8 @@ export async function GET(req: NextRequest) {
 
         const response = await fetchWithTimeout(url);
         if (!response.ok) {
-            return new Response("Image not found", { status: response.status });
+            const { origin } = new URL(req.url);
+            return NextResponse.redirect(`${origin}/logo.png`, 307);
         }
 
         const arrayBuffer = await response.arrayBuffer();
