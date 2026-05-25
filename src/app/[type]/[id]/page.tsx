@@ -62,9 +62,9 @@ async function PostViewContent({ type, id }: { type: string; id: string }) {
             <div className="w-full max-w-[720px] text-left">
                 {/* Tags row above title */}
                 <div className="flex flex-row flex-wrap gap-[6px] mb-[16px]">
-                    {PostTag.map((tag: string) => (
+                    {PostTag.map((tag: string, idx: number) => (
                         <span
-                            key={tag}
+                            key={`${tag}-${idx}`}
                             className="inline-block px-[10px] py-[3px] bg-[#EEF2FF] text-primary-blog_blue text-[12px] font-medium rounded-full font-nanum-r"
                         >
                             #{tag}
