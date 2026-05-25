@@ -77,7 +77,8 @@ export async function GET(req: NextRequest) {
 
         const response = await fetchWithTimeout(url);
         if (!response.ok) {
-            return new Response("Image not found", { status: response.status });
+            const siteUrl = process.env.URL_PUB || "https://dev-lr.com";
+            return NextResponse.redirect(`${siteUrl}/logo.png`, 307);
         }
 
         const arrayBuffer = await response.arrayBuffer();

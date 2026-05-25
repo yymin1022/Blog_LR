@@ -29,9 +29,37 @@ const pretendardB = localFont({
     variable: "--font-pretendard-b-next",
 });
 
+const siteUrl = process.env.URL_PUB || "https://dev-lr.com";
+
 export const metadata: Metadata = {
-    title: "Useful Blog",
+    metadataBase: new URL(siteUrl),
+    title: {
+        default: "Useful Blog",
+        template: "%s - Useful Blog",
+    },
     description: "1인개발자 Useful의 IT블로그",
+    openGraph: {
+        title: "Useful Blog",
+        description: "1인개발자 Useful의 IT블로그",
+        url: siteUrl,
+        siteName: "Useful Blog",
+        locale: "ko_KR",
+        type: "website",
+        images: [
+            {
+                url: "/logo.png",
+                width: 512,
+                height: 512,
+                alt: "Useful Blog Logo",
+            },
+        ],
+    },
+    twitter: {
+        card: "summary",
+        title: "Useful Blog",
+        description: "1인개발자 Useful의 IT블로그",
+        images: ["/logo.png"],
+    },
 };
 
 export default function RootLayout({
