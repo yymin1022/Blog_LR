@@ -76,7 +76,7 @@ async function PostListContent({ type }: { type: string }) {
                             <span className="text-[12px] font-bold text-[#9CA3AF] uppercase tracking-widest font-nanum-b">Posts</span>
                         </div>
                     )}
-                    <div className="w-full flex flex-row flex-wrap justify-center min-[1400px]:justify-between">
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-[20px] w-full">
                         {unpinnedPosts.map((post) => (
                             <PostCard key={post.postID} post={post} postType={type} />
                         ))}

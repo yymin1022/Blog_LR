@@ -11,8 +11,8 @@ export default function PostListLoading() {
                     <span className="text-[12px] font-bold text-primary-blog_blue/20 uppercase tracking-widest font-nanum-b">Featured</span>
                 </div>
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-[20px] w-full">
-                    <PinnedCardSkeleton />
-                    <PinnedCardSkeleton />
+                    <CardSkeleton />
+                    <CardSkeleton />
                 </div>
             </div>
 
@@ -25,42 +25,34 @@ export default function PostListLoading() {
                     <span className="w-[3px] h-[16px] bg-[#DDDDDD]/30 rounded-full animate-pulse" />
                     <span className="text-[12px] font-bold text-[#9CA3AF]/35 uppercase tracking-widest font-nanum-b">Posts</span>
                 </div>
-                <div className="w-full flex flex-row flex-wrap justify-center min-[1400px]:justify-between">
-                    <RegularCardSkeleton />
-                    <RegularCardSkeleton />
-                    <RegularCardSkeleton />
-                    <RegularCardSkeleton />
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-[20px] w-full">
+                    <CardSkeleton />
+                    <CardSkeleton />
+                    <CardSkeleton />
+                    <CardSkeleton />
                 </div>
             </div>
         </div>
     );
 }
 
-const PinnedCardSkeleton = () => {
+const CardSkeleton = () => {
     return (
-        <div className="w-full h-[150px] flex flex-row shadow-[0_1px_2px_rgba(0,0,0,0.15)] my-[15px] bg-primary-blog_white overflow-hidden">
-            {/* Mock Image */}
-            <Skeleton className="w-[150px] h-[150px] flex-shrink-0 !rounded-none" />
-            {/* Mock Text */}
-            <div className="flex-1 h-[150px] flex flex-col justify-center px-[20px] py-[10px] min-w-0">
-                <Skeleton className="h-[18px] w-[75%] mb-[12px] rounded" />
-                <Skeleton className="h-[14px] w-[40%] mb-[8px] rounded" />
-                <Skeleton className="h-[14px] w-[25%] rounded" />
+        <div className="w-full h-[155px] flex flex-row border border-[#EEF2F6] rounded-[16px] shadow-[0_4px_12px_rgba(0,0,0,0.01)] my-[10px] bg-primary-blog_white overflow-hidden">
+            {/* Mock Image (Polaroid Inset style) */}
+            <div className="p-[12px] pr-0 w-[142px] h-[155px] flex-shrink-0">
+                <Skeleton className="w-full h-full rounded-[10px]" />
             </div>
-        </div>
-    );
-};
-
-const RegularCardSkeleton = () => {
-    return (
-        <div className="w-[350px] min-[1400px]:w-[300px] h-[150px] min-[1400px]:h-[450px] flex flex-row min-[1400px]:flex-col shadow-[0_1px_2px_rgba(0,0,0,0.15)] my-[15px] bg-primary-blog_white overflow-hidden">
-            {/* Mock Image */}
-            <Skeleton className="w-[150px] min-[1400px]:w-[300px] h-[150px] min-[1400px]:h-[300px] flex-shrink-0 !rounded-none" />
             {/* Mock Text */}
-            <div className="w-[200px] min-[1400px]:w-[300px] h-[150px] flex flex-col justify-center min-[1400px]:justify-start px-[20px] py-[10px] min-[1400px]:pt-[15px]">
-                <Skeleton className="h-[18px] min-[1400px]:h-[22px] w-[80%] mb-[12px] min-[1400px]:mb-[14px] rounded" />
-                <Skeleton className="h-[14px] min-[1400px]:h-[15px] w-[45%] mb-[8px] min-[1400px]:mb-[12px] rounded" />
-                <Skeleton className="h-[14px] min-[1400px]:h-[15px] w-[30%] rounded" />
+            <div className="flex-1 h-[155px] flex flex-col justify-between px-[20px] py-[18px] min-w-0">
+                <div className="flex flex-col text-left">
+                    <Skeleton className="h-[18px] w-[75%] mb-[12px] rounded" />
+                    <Skeleton className="h-[14px] w-[40%] rounded" />
+                </div>
+                <div className="flex flex-row gap-[6px] mt-auto">
+                    <Skeleton className="h-[18px] w-[50px] rounded-full" />
+                    <Skeleton className="h-[18px] w-[60px] rounded-full" />
+                </div>
             </div>
         </div>
     );
