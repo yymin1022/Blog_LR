@@ -1,6 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getFBPostImage } from "@/utils/FirebaseUtil";
-import fs from "fs";
+import { getFBPostImage, fetchWithTimeout, CDN_BASE_URL } from "@/utils/FirebaseUtil";
 import path from "path";
 
 function isSafeInput(input: string | null): boolean {
@@ -10,6 +9,7 @@ function isSafeInput(input: string | null): boolean {
     }
     return true;
 }
+
 
 export async function POST(req: NextRequest) {
     try {
@@ -70,24 +70,18 @@ export async function GET(req: NextRequest) {
             return new Response("Invalid file extension", { status: 400 });
         }
 
-        const postDataDir = path.resolve(process.env.POST_DATA_DIR || "");
-        let srcDir = path.resolve(postDataDir, postType);
-        if (postType !== "solving") {
-            srcDir = path.resolve(srcDir, postID);
+        const baseUrl = CDN_BASE_URL;
+        const url = postType === "solving"
+            ? `${baseUrl}/${postType}/${srcID}`
+            : `${baseUrl}/${postType}/${postID}/${srcID}`;
+
+        const response = await fetchWithTimeout(url);
+        if (!response.ok) {
+            return new Response("Image not found", { status: response.status });
         }
 
-        const filePath = path.resolve(srcDir, srcID);
-
-        // Enforce that resolved path remains under the POST_DATA_DIR
-        if (!filePath.startsWith(postDataDir)) {
-            return new Response("Access Denied", { status: 403 });
-        }
-
-        if (!fs.existsSync(filePath)) {
-            return new Response("Image not found", { status: 404 });
-        }
-
-        const fileBuffer = await fs.promises.readFile(filePath);
+        const arrayBuffer = await response.arrayBuffer();
+        const fileBuffer = Buffer.from(arrayBuffer);
         
         let contentType = "image/png";
         if (ext === ".jpg" || ext === ".jpeg") {
