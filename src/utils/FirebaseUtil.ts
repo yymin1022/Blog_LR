@@ -1,6 +1,5 @@
 import { FirebaseApp, getApp, getApps, initializeApp } from "firebase/app";
 import { collection, doc, Firestore, getDoc, getDocs, getFirestore, orderBy, query } from "firebase/firestore";
-import fs from "fs";
 import path from "path";
 import { cache } from "react";
 
@@ -84,6 +83,23 @@ export const getFBPostList = cache(async (postType: string) => {
     return resultData;
 });
 
+async function fetchWithTimeout(resource: string, options: RequestInit & { timeout?: number } = {}) {
+    const { timeout = 8000 } = options;
+    const controller = new AbortController();
+    const id = setTimeout(() => controller.abort(), timeout);
+    try {
+        const response = await fetch(resource, {
+            ...options,
+            signal: controller.signal
+        });
+        clearTimeout(id);
+        return response;
+    } catch (error) {
+        clearTimeout(id);
+        throw error;
+    }
+}
+
 export const getFBPostData = cache(async (postType: string, postID: string) => {
     const db = initFB();
     const resultData = {
@@ -126,16 +142,13 @@ export const getFBPostData = cache(async (postType: string, postID: string) => {
             return resultData;
         }
 
-        const postDataDir = path.resolve(process.env.POST_DATA_DIR || "");
-        const postFile = path.resolve(postDataDir, postType, postURL, "post.md");
-
-        if (!postFile.startsWith(postDataDir)) {
-            resultData.RESULT_CODE = 100;
-            resultData.RESULT_MSG = "Access Denied";
-            return resultData;
+        const url = `https://raw.githubusercontent.com/yymin1022/Blog_LR_Data/master/${postType}/${postURL}/post.md`;
+        const response = await fetchWithTimeout(url);
+        if (!response.ok) {
+            throw new Error(`Failed to fetch post content (HTTP ${response.status})`);
         }
 
-        resultData.RESULT_DATA.PostContent = await fs.promises.readFile(postFile, "utf8");
+        resultData.RESULT_DATA.PostContent = await response.text();
 
         resultData.RESULT_CODE = 200;
         resultData.RESULT_MSG = "Success";
@@ -170,22 +183,19 @@ export const getFBPostImage = async (postType: string, postID: string, srcID: st
         return resultData;
     }
 
-    const postDataDir = path.resolve(process.env.POST_DATA_DIR || "");
-    let srcDir = path.resolve(postDataDir, postType);
-    if (postType !== "solving") {
-        srcDir = path.resolve(srcDir, postID);
-    }
-    const filePath = path.resolve(srcDir, srcID);
-
-    if (!filePath.startsWith(postDataDir)) {
-        resultData.RESULT_CODE = 100;
-        resultData.RESULT_MSG = "Access Denied";
-        return resultData;
-    }
-
     try {
-        const tempData = await fs.promises.readFile(filePath);
-        resultData.RESULT_DATA.ImageData = Buffer.from(tempData).toString("base64");
+        const baseUrl = "https://raw.githubusercontent.com/yymin1022/Blog_LR_Data/master";
+        const url = postType === "solving"
+            ? `${baseUrl}/${postType}/${srcID}`
+            : `${baseUrl}/${postType}/${postID}/${srcID}`;
+
+        const response = await fetchWithTimeout(url);
+        if (!response.ok) {
+            throw new Error(`Failed to fetch image (HTTP ${response.status})`);
+        }
+
+        const arrayBuffer = await response.arrayBuffer();
+        resultData.RESULT_DATA.ImageData = Buffer.from(arrayBuffer).toString("base64");
 
         resultData.RESULT_CODE = 200;
         resultData.RESULT_MSG = "Success";
