@@ -83,7 +83,9 @@ export const getFBPostList = cache(async (postType: string) => {
     return resultData;
 });
 
-async function fetchWithTimeout(resource: string, options: RequestInit & { timeout?: number } = {}) {
+export const CDN_BASE_URL = "https://cdn.jsdelivr.net/gh/yymin1022/Blog_LR_Data@master";
+
+export async function fetchWithTimeout(resource: string, options: RequestInit & { timeout?: number } = {}) {
     const { timeout = 8000 } = options;
     const controller = new AbortController();
     const id = setTimeout(() => controller.abort(), timeout);
@@ -142,7 +144,7 @@ export const getFBPostData = cache(async (postType: string, postID: string) => {
             return resultData;
         }
 
-        const url = `https://cdn.jsdelivr.net/gh/yymin1022/Blog_LR_Data@master/${postType}/${postURL}/post.md`;
+        const url = `${CDN_BASE_URL}/${postType}/${postURL}/post.md`;
         const response = await fetchWithTimeout(url);
         if (!response.ok) {
             throw new Error(`Failed to fetch post content (HTTP ${response.status})`);
@@ -184,7 +186,7 @@ export const getFBPostImage = async (postType: string, postID: string, srcID: st
     }
 
     try {
-        const baseUrl = "https://cdn.jsdelivr.net/gh/yymin1022/Blog_LR_Data@master";
+        const baseUrl = CDN_BASE_URL;
         const url = postType === "solving"
             ? `${baseUrl}/${postType}/${srcID}`
             : `${baseUrl}/${postType}/${postID}/${srcID}`;

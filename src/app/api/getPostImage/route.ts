@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getFBPostImage } from "@/utils/FirebaseUtil";
+import { getFBPostImage, fetchWithTimeout, CDN_BASE_URL } from "@/utils/FirebaseUtil";
 import path from "path";
 
 function isSafeInput(input: string | null): boolean {
@@ -10,22 +10,6 @@ function isSafeInput(input: string | null): boolean {
     return true;
 }
 
-async function fetchWithTimeout(resource: string, options: RequestInit & { timeout?: number } = {}) {
-    const { timeout = 8000 } = options;
-    const controller = new AbortController();
-    const id = setTimeout(() => controller.abort(), timeout);
-    try {
-        const response = await fetch(resource, {
-            ...options,
-            signal: controller.signal
-        });
-        clearTimeout(id);
-        return response;
-    } catch (error) {
-        clearTimeout(id);
-        throw error;
-    }
-}
 
 export async function POST(req: NextRequest) {
     try {
@@ -86,7 +70,7 @@ export async function GET(req: NextRequest) {
             return new Response("Invalid file extension", { status: 400 });
         }
 
-        const baseUrl = "https://cdn.jsdelivr.net/gh/yymin1022/Blog_LR_Data@master";
+        const baseUrl = CDN_BASE_URL;
         const url = postType === "solving"
             ? `${baseUrl}/${postType}/${srcID}`
             : `${baseUrl}/${postType}/${postID}/${srcID}`;
