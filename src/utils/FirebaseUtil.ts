@@ -142,7 +142,7 @@ export const getFBPostData = cache(async (postType: string, postID: string) => {
             return resultData;
         }
 
-        const url = `https://raw.githubusercontent.com/yymin1022/Blog_LR_Data/master/${postType}/${postURL}/post.md`;
+        const url = `https://cdn.jsdelivr.net/gh/yymin1022/Blog_LR_Data@master/${postType}/${postURL}/post.md`;
         const response = await fetchWithTimeout(url);
         if (!response.ok) {
             throw new Error(`Failed to fetch post content (HTTP ${response.status})`);
@@ -184,7 +184,7 @@ export const getFBPostImage = async (postType: string, postID: string, srcID: st
     }
 
     try {
-        const baseUrl = "https://raw.githubusercontent.com/yymin1022/Blog_LR_Data/master";
+        const baseUrl = "https://cdn.jsdelivr.net/gh/yymin1022/Blog_LR_Data@master";
         const url = postType === "solving"
             ? `${baseUrl}/${postType}/${srcID}`
             : `${baseUrl}/${postType}/${postID}/${srcID}`;

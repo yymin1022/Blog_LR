@@ -86,7 +86,7 @@ export async function GET(req: NextRequest) {
             return new Response("Invalid file extension", { status: 400 });
         }
 
-        const baseUrl = "https://raw.githubusercontent.com/yymin1022/Blog_LR_Data/master";
+        const baseUrl = "https://cdn.jsdelivr.net/gh/yymin1022/Blog_LR_Data@master";
         const url = postType === "solving"
             ? `${baseUrl}/${postType}/${srcID}`
             : `${baseUrl}/${postType}/${postID}/${srcID}`;
