@@ -1,36 +1,52 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# UsefulBlog Web
+This is the web project of [Useful IT Blog](https://dev-lr.com), built with Next.js 16
 
-## Getting Started
+Renders blog posts fetched from GitHub, with a custom Markdown renderer, and displays comments via [Utterances](https://utteranc.es)
 
-First, run the development server:
+## Project Overview
 
+> This diagram is generated with Claude
+
+<img src="https://github.com/user-attachments/assets/038d8510-4c9b-47b6-a1cf-c78435f942fc" width="70%" />
+
+- UI - Pages and Server Components, built with the Next.js App Router
+- API Endpoints - Route handlers that expose post list / data as REST endpoints
+- Util - GitHub CDN parser that fetches post data from [UsefulBlog_Data](https://github.com/yymin1022/UsefulBlog_Data)
+- Comments are handled by Utterances, which communicates directly with [UsefulBlog_Comments](https://github.com/yymin1022/UsefulBlog_Comments)
+
+## Get Started
+1. Clone this repository on your local environment
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+   yong@ubuntu-server ~/ :$ git clone https://github.com/yymin1022/UsefulBlog.git
+```
+2. Install dependencies, and run the development server
+```bash
+   yong@ubuntu-server ~/ :$ cd UsefulBlog
+   yong@ubuntu-server ~/UsefulBlog/ :$ npm install
+   yong@ubuntu-server ~/UsefulBlog/ :$ npm run dev
+```
+3. Build for production
+```bash
+   yong@ubuntu-server ~/UsefulBlog/ :$ npm run build
+   yong@ubuntu-server ~/UsefulBlog/ :$ npm run start
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Team Members
+| [유용민](https://github.com/yymin1022) |
+|---|
+| <img src="https://github.com/GDSC-CAU/Vridge-Android/assets/62137001/1904f22f-6086-4bc9-8a9d-2f6875b117fe" width="150" /> |
+| Web |
+| Developer |
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Screenshots
+<p align="left">
+  <img src="https://github.com/user-attachments/assets/daaf8220-3afd-4012-a08a-9a5ae7630068" width=70%>
+  <img src="https://github.com/user-attachments/assets/c13ad9dd-ac78-4d1f-ae9d-98433d1584dd" width=70%>
+  <img src="https://github.com/user-attachments/assets/1d010858-c44a-40c7-97de-007920ea7788" width=70%>
+</p>
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+## Useful links
+- [Useful IT Blog](https://dev-lr.com)
+- [GitHub](https://github.com/yymin1022)
+- [Instagram](https://instagram.com/useful_min)
+- [LinkedIn](https://linkedin.com/in/yymin1022)
