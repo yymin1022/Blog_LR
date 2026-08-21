@@ -8,11 +8,27 @@ interface PostIndexItem {
     postDate?: string;
 }
 
-function parsePostDate(dateStr?: string): Date {
-    if (!dateStr) return new Date();
+function parsePostDate(dateStr?: string): Date | undefined {
+    if (!dateStr) return undefined;
+
+    // solving 카테고리 문제 번호("BOJ 32932", "Programmers 12906") 및 임의 텍스트 필터링
+    if (/^(boj|programmers)/i.test(dateStr.trim())) {
+        return undefined;
+    }
+
     const cleaned = dateStr.replace(/\./g, ",");
     const parsed = new Date(cleaned);
-    return isNaN(parsed.getTime()) ? new Date() : parsed;
+    const time = parsed.getTime();
+
+    if (isNaN(time)) return undefined;
+
+    // 정상적인 연도 범위 (2000년 ~ 2100년) 외의 날짜는 제외
+    const year = parsed.getFullYear();
+    if (year < 2000 || year > 2100) {
+        return undefined;
+    }
+
+    return parsed;
 }
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
@@ -63,9 +79,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
                     .filter((post) => Boolean(post.postID))
                     .map((post) => {
                         const isAbout = category === "about";
+                        const postDate = parsePostDate(post.postDate);
+
                         return {
                             url: `${siteUrl}/${category}/${post.postID}`,
-                            lastModified: parsePostDate(post.postDate),
+                            ...(postDate ? { lastModified: postDate } : {}),
                             changeFrequency: isAbout ? ("monthly" as const) : ("weekly" as const),
                             priority: isAbout ? 0.7 : 0.6,
                         };
